@@ -57,6 +57,19 @@ def main(argv: list[str] | None = None) -> int:
         for gate in result.gates:
             state = "PASS" if gate.passed else "FAIL"
             print(f"  {state} {gate.name}: {gate.observed}")
+        for summary in result.method_summaries:
+            label = (
+                "stacey"
+                if summary.method == "stacey"
+                else f"wilson:r={summary.wilson_r:g}"
+            )
+            print(
+                f"  method {label}: hard_pass={summary.hard_pass} "
+                f"max_energy_error_eV={summary.max_energy_error_eV:.6g} "
+                f"min_overlap={summary.min_target_overlap:.9g} "
+                f"finest_profile_l1={summary.finest_profile_l1_error:.9g} "
+                f"max_ghost_wall_modes={summary.max_ghost_wall_modes}"
+            )
         print(f"  spectral_validator={result.spectral_validator}")
         print(f"  transport_candidate={result.transport_candidate}")
         print(f"  transport_authorized={result.transport_authorized}")
