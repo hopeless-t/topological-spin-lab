@@ -1,0 +1,10 @@
+{
+  "experiment_id": "EXP-003",
+  "git_commit": "c4daf00e5c0b04d32580f1a659b6d6bb6fab2f79",
+  "numpy_version": "2.5.3",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python_version": "3.12.14",
+  "schema_version": "0.1",
+  "spec_sha256": "a05a60de01cd07c4e8de092a5cbf91bde6e595baa6d5ad43e38c635bc1301f54",
+  "status": "PASS"
+}
