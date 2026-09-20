@@ -157,6 +157,8 @@ def parse_experiment_spec(raw: Mapping[str, Any]) -> Exp001Spec:
         raise SpecValidationError("sampling.spectrum.min_Ainv must be < max_Ainv.")
     if points < 3:
         raise SpecValidationError("sampling.spectrum.points must be >= 3.")
+    if not (minimum <= 0.0 <= maximum):
+        raise SpecValidationError("sampling.spectrum range must include kx = 0.")
 
     zero_index = (-minimum) * (points - 1) / (maximum - minimum)
     if not math.isclose(zero_index, round(zero_index), rel_tol=0.0, abs_tol=1e-12):
