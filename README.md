@@ -9,7 +9,7 @@ A small, reproducible computational physics lab for exploring topological and sp
 
 **Research / educational software — early development**
 
-**EXP-001** establishes the frozen numerical baseline for a generic massless surface Dirac model. **EXP-002** adds a controlled uniform magnetic mass and verifies the resulting gap, spin tilt, and time-reversal breaking against independent analytic expectations.
+**EXP-001** establishes the frozen numerical baseline for a generic massless surface Dirac model. **EXP-002** adds a controlled uniform magnetic mass. **EXP-003** introduces a sign-changing continuum mass wall and verifies the localized chiral bound mode against a known analytic solution.
 
 This repository is built around small experiments with explicit inputs, numerical acceptance criteria, and reproducible evidence.
 
@@ -163,6 +163,33 @@ material-specific prediction.
 
 See [`docs/EXP-002.md`](docs/EXP-002.md) for the frozen scientific contract.
 
+## EXP-003 — Continuum Mass-Domain-Wall Reference
+
+EXP-003 promotes the EXP-002 mass from a constant to a smooth sign-changing
+profile,
+
+```text
+m(x) = m0 tanh(x / w)
+```
+
+and verifies the known localized mode of
+
+```text
+H = -i alpha sigma_y d/dx - alpha ky sigma_x + m(x) sigma_z
+```
+
+without introducing a lattice regulator. The canonical generic parameters are
+`alpha = 1.0 eV·Å`, `m0 = 0.020 eV`, and `w = 50 Å`, giving
+`xi = alpha/m0 = 50 Å`.
+
+The experiment checks operator residual, normalization/localization, chiral
+linear dispersion, in-gap binding, spin, and wall-reversal chirality. It does
+not claim an NdBi domain wall, AFM-TI classification, Chern number, quantized
+transport, or freedom from artifacts in a future lattice implementation.
+
+See [`docs/EXP-003.md`](docs/EXP-003.md) for the frozen scientific contract
+and the Monte Carlo-supported method/sampling decision.
+
 ## Repository structure
 
 ```text
@@ -170,7 +197,8 @@ topological-spin-lab/
 │
 ├── specs/
 │   ├── EXP-001.json
-│   └── EXP-002.json
+│   ├── EXP-002.json
+│   └── EXP-003.json
 │
 ├── src/
 │   └── topological_spin_lab/
@@ -271,6 +299,14 @@ python -m topological_spin_lab run \
     --out runs/EXP-002
 ```
 
+## Run EXP-003
+
+```bash
+python -m topological_spin_lab run \
+    specs/EXP-003.json \
+    --out runs/EXP-003
+```
+
 ## Run the tests
 
 ```bash
@@ -313,9 +349,9 @@ Physics functions should remain deterministic and free of filesystem, network, G
 ```mermaid
 flowchart LR
     E1["EXP-001<br/>Massless surface Dirac reference<br/>(implemented + frozen reference)"]
-    E2["EXP-002<br/>Magnetic mass / Dirac gap<br/>(implemented)"]
-    E3["EXP-003<br/>Boundary / domain-wall / edge-state model<br/>(next)"]
-    E4["EXP-004<br/>Spin-resolved transport"]
+    E2["EXP-002<br/>Magnetic mass / Dirac gap<br/>(implemented + frozen reference)"]
+    E3["EXP-003<br/>Continuum mass-domain-wall reference<br/>(implemented)"]
+    E4["EXP-004<br/>Spin-resolved transport<br/>(next contract pending)"]
     E5["EXP-005<br/>Disorder robustness"]
     E6["EXP-006<br/>Automated model-space exploration"]
     E7["EXP-007<br/>Literature-informed / NdBi-inspired study"]
