@@ -183,6 +183,70 @@ Role: future-facing precedent for systematic magnetic-topological-material searc
 
 ---
 
+## Domain-wall, boundary, and lattice-regularization lineage
+
+### [P-JR-1976] Jackiw and Rebbi
+
+R. Jackiw and C. Rebbi.
+"Solitons with fermion number 1/2."
+Physical Review D 13, 3398 (1976).
+DOI: https://doi.org/10.1103/PhysRevD.13.3398
+
+Role: historical primary source for isolated zero-energy Dirac solutions bound
+to soliton backgrounds. The original work is not a topological-insulator paper;
+EXP-003 uses the later condensed-matter mass-domain-wall lineage rather than
+attributing TI-specific claims to this source.
+
+### [P-NN-1981] Nielsen and Ninomiya
+
+H. B. Nielsen and M. Ninomiya.
+"A no-go theorem for regularizing chiral fermions."
+Physics Letters B 105, 219–223 (1981).
+DOI: https://doi.org/10.1016/0370-2693(81)91026-1
+
+Role: primary source motivating explicit caution about fermion species
+doubling when a chiral continuum theory is placed on a lattice. It is why
+EXP-003 establishes a continuum known-answer reference before any naive lattice
+implementation is treated as evidence.
+
+### [P-DW-TI-2013] Zhang, Kane, and Mele
+
+Fan Zhang, C. L. Kane, and E. J. Mele.
+"Surface State Magnetization and Chiral Edge States on Topological Insulators."
+Physical Review Letters 110, 046404 (2013).
+DOI: https://doi.org/10.1103/PhysRevLett.110.046404
+
+Role: primary topological-insulator surface reference connecting magnetization,
+surface Dirac masses, Hall-sign changes, and chiral states at appropriate
+edges/facet boundaries.
+
+### [P-DW-NUM-2013] Hammer and Pötz
+
+René Hammer and Walter Pötz.
+"Dynamics of domain-wall Dirac fermions on a topological insulator: A chiral
+fermion beam splitter."
+Physical Review B 88, 235119 (2013).
+DOI: https://doi.org/10.1103/PhysRevB.88.235119
+
+Role: direct domain-wall Dirac-fermion precedent and a later candidate source
+for staggered-grid numerical realization. EXP-003 does not yet adopt its
+lattice scheme.
+
+### [P-AFM-CHANNEL-2021] Varnava et al.
+
+Nicodemos Varnava, Justin H. Wilson, J. H. Pixley, et al.
+"Controllable quantum point junction on the surface of an antiferromagnetic
+topological insulator."
+Nature Communications 12, 3998 (2021).
+DOI: https://doi.org/10.1038/s41467-021-24276-5
+
+Role: AFM-TI boundary/channel lineage. The work models distinct chiral channels
+associated with antiferromagnetic domain walls and single-height surface steps.
+It motivates later material/symmetry-aware boundary experiments but does not
+turn the generic EXP-003 mass wall into an AFM-TI model.
+
+---
+
 ## Secondary orientation
 
 These reviews are field maps. Experiment claims should still point to primary sources when possible.
