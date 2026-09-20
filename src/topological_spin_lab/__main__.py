@@ -16,6 +16,9 @@ from .results import ExperimentStatus
 from .spec import Exp001Spec
 from .spec_exp002 import Exp002Spec
 from .spec_exp003 import Exp003Spec
+from .spec_val001 import load_val001_spec
+from .validation.evidence import write_val001_evidence
+from .validation.val001 import execute_val001
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -25,11 +28,39 @@ def _parser() -> argparse.ArgumentParser:
     run = subparsers.add_parser("run", help="Run an experiment spec.")
     run.add_argument("spec", type=Path)
     run.add_argument("--out", type=Path, required=True)
+
+    validate = subparsers.add_parser("validate", help="Run a validation spec.")
+    validate.add_argument("spec", type=Path)
+    validate.add_argument("--out", type=Path, required=True)
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
+
+    if args.command == "validate":
+        try:
+            spec = load_val001_spec(args.spec)
+        except SpecValidationError as exc:
+            print(f"INVALID: {exc}", file=sys.stderr)
+            return 2
+
+        try:
+            provenance = collect_provenance(Path.cwd())
+            result = execute_val001(spec)
+            write_val001_evidence(spec, result, provenance, args.out)
+        except Exception as exc:
+            print(f"ERROR: {type(exc).__name__}: {exc}", file=sys.stderr)
+            return 3
+
+        print(f"{result.status.value}: {spec.validation_id}")
+        for gate in result.gates:
+            state = "PASS" if gate.passed else "FAIL"
+            print(f"  {state} {gate.name}: {gate.observed}")
+        print(f"  spectral_validator={result.spectral_validator}")
+        print(f"  transport_candidate={result.transport_candidate}")
+        print(f"  transport_authorized={result.transport_authorized}")
+        return 0 if result.status is ExperimentStatus.PASS else 1
 
     if args.command != "run":
         return 3
