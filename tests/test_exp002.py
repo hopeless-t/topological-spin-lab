@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -104,3 +105,14 @@ def test_missing_mass_term_is_detected_as_fail(monkeypatch) -> None:
     result = exp002.execute_exp002(SPEC)
     assert result.status is ExperimentStatus.FAIL
     assert any(check.name == "direct_gap" and not check.passed for check in result.checks)
+
+
+def test_negative_mass_flips_upper_band_out_of_plane_spin() -> None:
+    negative_spec = replace(
+        SPEC,
+        model=replace(SPEC.model, mass_eV=-abs(SPEC.model.mass_eV)),
+    )
+    result = exp002.execute_exp002(negative_spec)
+    upper = next(point for point in result.spin_ring if point.band == "upper")
+    assert result.status is ExperimentStatus.PASS
+    assert upper.sz < 0.0
