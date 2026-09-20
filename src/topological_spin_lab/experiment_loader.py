@@ -7,8 +7,9 @@ from typing import TypeAlias
 from .errors import SpecValidationError
 from .spec import Exp001Spec, parse_experiment_spec
 from .spec_exp002 import Exp002Spec, parse_exp002_spec
+from .spec_exp003 import Exp003Spec, parse_exp003_spec
 
-ExperimentSpec: TypeAlias = Exp001Spec | Exp002Spec
+ExperimentSpec: TypeAlias = Exp001Spec | Exp002Spec | Exp003Spec
 
 
 def load_any_experiment_spec(path: Path) -> ExperimentSpec:
@@ -25,6 +26,8 @@ def load_any_experiment_spec(path: Path) -> ExperimentSpec:
         return parse_experiment_spec(raw)
     if experiment_id == "EXP-002":
         return parse_exp002_spec(raw)
+    if experiment_id == "EXP-003":
+        return parse_exp003_spec(raw)
 
     if not isinstance(experiment_id, str) or not experiment_id:
         raise SpecValidationError("experiment_id must be a non-empty string.")
