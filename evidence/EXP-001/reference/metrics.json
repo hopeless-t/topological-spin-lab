@@ -1,0 +1,79 @@
+{
+  "checks": [
+    {
+      "limit": 1e-12,
+      "name": "hermiticity",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-10,
+      "name": "analytic_spectrum",
+      "observed": 6.938893903907228e-18,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-12,
+      "name": "dirac_point",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-12,
+      "name": "particle_hole",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-10,
+      "name": "spin_norm",
+      "observed": 4.440892098500626e-16,
+      "passed": true,
+      "unit": "1"
+    },
+    {
+      "limit": 1e-10,
+      "name": "spin_momentum_dot",
+      "observed": 2.387850855236552e-16,
+      "passed": true,
+      "unit": "1"
+    },
+    {
+      "limit": 1e-10,
+      "name": "spin_z",
+      "observed": 2.220446049250313e-16,
+      "passed": true,
+      "unit": "1"
+    },
+    {
+      "limit": 1e-10,
+      "name": "helicity",
+      "observed": 4.440892098500626e-16,
+      "passed": true,
+      "unit": "1"
+    },
+    {
+      "limit": 1e-12,
+      "name": "time_reversal",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "eV"
+    }
+  ],
+  "metrics": {
+    "dirac_point_abs_eV": 0.0,
+    "max_abs_spin_z": 2.220446049250313e-16,
+    "max_analytic_spectrum_error_eV": 6.938893903907228e-18,
+    "max_helicity_error": 4.440892098500626e-16,
+    "max_hermiticity_residual_eV": 0.0,
+    "max_particle_hole_error_eV": 0.0,
+    "max_spin_momentum_dot": 2.387850855236552e-16,
+    "max_spin_norm_error": 4.440892098500626e-16,
+    "max_time_reversal_residual_eV": 0.0
+  },
+  "status": "PASS"
+}
