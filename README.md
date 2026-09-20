@@ -9,7 +9,7 @@ A small, reproducible computational physics lab for exploring topological and sp
 
 **Research / educational software — early development**
 
-**EXP-001** establishes the frozen numerical baseline for a generic massless surface Dirac model. **EXP-002** adds a controlled uniform magnetic mass. **EXP-003** introduces a sign-changing continuum mass wall and verifies the localized chiral bound mode against a known analytic solution.
+**EXP-001** establishes the frozen numerical baseline for a generic massless surface Dirac model. **EXP-002** adds a controlled uniform magnetic mass. **EXP-003** introduces a sign-changing continuum mass wall and is now frozen as the canonical continuum boundary reference. **VAL-001** is the next numerical-method validation step before any lattice transport experiment.
 
 This repository is built around small experiments with explicit inputs, numerical acceptance criteria, and reproducible evidence.
 
@@ -187,8 +187,7 @@ linear dispersion, in-gap binding, spin, and wall-reversal chirality. It does
 not claim an NdBi domain wall, AFM-TI classification, Chern number, quantized
 transport, or freedom from artifacts in a future lattice implementation.
 
-See [`docs/EXP-003.md`](docs/EXP-003.md) for the frozen scientific contract
-and the Monte Carlo-supported method/sampling decision.
+See [`docs/EXP-003.md`](docs/EXP-003.md) for the frozen scientific contract. The next numerical-method decision is documented in [`docs/VAL-001.md`](docs/VAL-001.md).
 
 ## Repository structure
 
@@ -356,13 +355,14 @@ Physics functions should remain deterministic and free of filesystem, network, G
 flowchart LR
     E1["EXP-001<br/>Massless surface Dirac reference<br/>(implemented + frozen reference)"]
     E2["EXP-002<br/>Magnetic mass / Dirac gap<br/>(implemented + frozen reference)"]
-    E3["EXP-003<br/>Continuum mass-domain-wall reference<br/>(implemented)"]
-    E4["EXP-004<br/>Spin-resolved transport<br/>(next contract pending)"]
+    E3["EXP-003<br/>Continuum mass-domain-wall reference<br/>(implemented + frozen reference)"]
+    V1["VAL-001<br/>Wilson vs staggered regulator cross-check<br/>(next)"]
+    E4["EXP-004<br/>Spin-resolved transport<br/>(deferred pending VAL-001)"]
     E5["EXP-005<br/>Disorder robustness"]
     E6["EXP-006<br/>Automated model-space exploration"]
     E7["EXP-007<br/>Literature-informed / NdBi-inspired study"]
 
-    E1 --> E2 --> E3 --> E4 --> E5 --> E6 --> E7
+    E1 --> E2 --> E3 --> V1 --> E4 --> E5 --> E6 --> E7
 ```
 
 Later experiment numbers describe intent, not guaranteed implementation. A roadmap node is **not** an implemented result.
