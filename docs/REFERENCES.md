@@ -232,6 +232,44 @@ Role: direct domain-wall Dirac-fermion precedent and a later candidate source
 for staggered-grid numerical realization. EXP-003 does not yet adopt its
 lattice scheme.
 
+### [P-WILSON-TI-2017] Zhou et al.
+
+Yan-Feng Zhou, Hua Jiang, X. C. Xie, and Qing-Feng Sun.
+"Two-dimensional lattice model for the surface states of topological insulators."
+Physical Review B 95, 245137 (2017).
+DOI: https://doi.org/10.1103/PhysRevB.95.245137
+
+Role: primary condensed-matter precedent for adding a Wilson mass to a
+two-dimensional lattice representation of a topological-insulator surface in
+order to lift fermion doublers. VAL-001 uses the Wilson idea as one numerical
+regulator, not as a material-specific model.
+
+### [P-STACEY-2021] Pacholski et al.
+
+M. J. Pacholski, G. Lemut, J. Tworzydło, and C. W. J. Beenakker.
+"Generalized eigenproblem without fermion doubling for Dirac fermions on a lattice."
+SciPost Physics 11, 105 (2021).
+DOI: https://doi.org/10.21468/SciPostPhys.11.6.105
+
+Role: primary source for the stationary Stacey/tangent generalized eigenproblem
+used as the spectral-validation comparator in VAL-001. The source constructs
+local Hermitian H and positive metric P in H psi = E P psi. VAL-001 uses a
+repository-specific one-dimensional open-boundary reduction and validates it
+against the frozen EXP-003 continuum result.
+
+### [P-STAG-CRIT-2022] Donís Vela et al.
+
+A. Donís Vela, G. Lemut, M. J. Pacholski, J. Tworzydło, and C. W. J. Beenakker.
+"Reflectionless Klein tunneling of Dirac fermions: comparison of split-operator
+and staggered-lattice discretization of the Dirac equation."
+Journal of Physics: Condensed Matter 34, 364003 (2022).
+DOI: https://doi.org/10.1088/1361-648X/ac7d2d
+
+Role: critical follow-up showing that a previously used staggered space-time
+lattice can contain a second Dirac cone once the enlarged Brillouin zone is
+accounted for. This is why VAL-001 does not treat every method called
+"staggered" as equivalent and records the exact regulator formulation.
+
 ### [P-AFM-CHANNEL-2021] Varnava et al.
 
 Nicodemos Varnava, Justin H. Wilson, J. H. Pixley, et al.
