@@ -17,7 +17,7 @@ flowchart LR
     F["AFM topology<br/>Mong-Essin-Moore 2010"] --> G["Intrinsic AFM materials<br/>MnBi2Te4 2019"]
     G --> H["NdBi lineage<br/>2023 → 2026"]
     H --> X2
-    H --> X3["EXP-003<br/>Boundary / domain questions"]
+    H --> X3["EXP-003<br/>Continuum mass-domain-wall reference"]
 
     J["High-throughput magnetic topology<br/>Xu et al. 2020"] --> X6["EXP-006 / EXP-007<br/>Model search → literature-informed study"]
 ```
@@ -123,7 +123,10 @@ EXP-003
 boundary / domain-wall / edge-state model
 ~~~
 
-The exact EXP-003 Hamiltonian remains a separate design decision.
+EXP-003 resolves this first with a continuum sign-changing Dirac mass and an
+analytic localized chiral mode. It deliberately does not yet claim the full
+AFM-TI boundary problem. A lattice-regularized realization remains a later
+decision.
 
 ---
 
@@ -239,9 +242,47 @@ Neither is automatically discarded.
 
 ---
 
+
+## Chain F — Why EXP-003 is continuum before lattice
+
+SOURCE
+
+- [P-JR-1976] Jackiw & Rebbi: historical Dirac zero-mode mechanism.
+- [P-NN-1981] Nielsen & Ninomiya: lattice-doubling caution.
+- [P-DW-TI-2013] Zhang, Kane & Mele: magnetized TI surfaces and chiral edge states.
+- [P-DW-NUM-2013] Hammer & Pötz: numerical domain-wall Dirac fermions using a single-cone staggered-grid scheme.
+- [P-AFM-CHANNEL-2021] Varnava et al.: AFM-TI domain-wall and step channels.
+
+OBSERVATION / ESTABLISHED RESULT
+
+Sign changes in an appropriate Dirac mass can bind localized chiral modes, but
+placing a single-cone continuum description on a lattice introduces additional
+regularization questions. Real AFM-TI channels also depend on surface,
+termination, magnetic order, and symmetry structure.
+
+INFERENCE FOR THIS REPOSITORY
+
+The highest-information next calculation is a known-answer continuum mass wall
+whose wave function, spin, localization, and dispersion can be checked without
+a lattice regulator. This becomes the regression target for any later Wilson,
+staggered-grid, or Kwant implementation.
+
+EXPERIMENT IMPACT
+
+~~~text
+EXP-002
+uniform mass
+        ↓ sign-changing m(x)
+EXP-003
+continuum domain-wall reference
+        ↓ only after reference is frozen
+future lattice / transport realization
+~~~
+
+---
 ## Current literature-to-experiment boundary
 
-As of EXP-001:
+As of EXP-003:
 
 ~~~text
 Literature informs:
