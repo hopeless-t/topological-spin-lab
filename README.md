@@ -285,8 +285,8 @@ Physics functions should remain deterministic and free of filesystem, network, G
 
 ```mermaid
 flowchart LR
-    E1["EXP-001<br/>Massless surface Dirac reference<br/><b>implemented</b>"]
-    E2["EXP-002<br/>Magnetic mass / Dirac gap<br/><b>next</b>"]
+    E1["EXP-001<br/>Massless surface Dirac reference<br/>(implemented)"]
+    E2["EXP-002<br/>Magnetic mass / Dirac gap<br/>(next)"]
     E3["EXP-003<br/>Boundary / domain-wall / edge-state model"]
     E4["EXP-004<br/>Spin-resolved transport"]
     E5["EXP-005<br/>Disorder robustness"]
