@@ -5,15 +5,17 @@ import sys
 from pathlib import Path
 
 from .errors import SpecValidationError
-from .evidence import write_evidence
+from .evidence import write_evidence, write_exp003_evidence
 from .experiment_loader import load_any_experiment_spec
 from .experiments.exp001 import execute_exp001
 from .experiments.exp002 import execute_exp002
-from .plotting import write_exp002_figures, write_figures
+from .experiments.exp003 import execute_exp003
+from .plotting import write_exp002_figures, write_exp003_figures, write_figures
 from .provenance import collect_provenance
 from .results import ExperimentStatus
 from .spec import Exp001Spec
 from .spec_exp002 import Exp002Spec
+from .spec_exp003 import Exp003Spec
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -39,18 +41,22 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     try:
+        provenance = collect_provenance(Path.cwd())
+
         if isinstance(spec, Exp001Spec):
             result = execute_exp001(spec)
-            figure_writer = write_figures
+            write_evidence(spec, result, provenance, args.out)
+            write_figures(result, args.out / "figures")
         elif isinstance(spec, Exp002Spec):
             result = execute_exp002(spec)
-            figure_writer = write_exp002_figures
+            write_evidence(spec, result, provenance, args.out)
+            write_exp002_figures(result, args.out / "figures")
+        elif isinstance(spec, Exp003Spec):
+            result = execute_exp003(spec)
+            write_exp003_evidence(spec, result, provenance, args.out)
+            write_exp003_figures(result, args.out / "figures")
         else:
             raise TypeError(f"Unsupported spec type: {type(spec).__name__}")
-
-        provenance = collect_provenance(Path.cwd())
-        write_evidence(spec, result, provenance, args.out)
-        figure_writer(result, args.out / "figures")
     except Exception as exc:
         print(f"ERROR: {type(exc).__name__}: {exc}", file=sys.stderr)
         return 3
