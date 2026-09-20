@@ -43,3 +43,15 @@ jobs:
           python -m topological_spin_lab run \
             specs/EXP-003.json \
             --out runs/EXP-003-ci
+
+      - name: Validate VAL-001
+        run: |
+          python -m topological_spin_lab validate \
+            specs/VAL-001.json \
+            --out runs/VAL-001-ci
+
+      - name: Run VAL-001 threshold sensitivity
+        run: |
+          python research/val001_threshold_sensitivity.py \
+            runs/VAL-001-ci/summary.json \
+            --out runs/VAL-001-ci/threshold_sensitivity.json
