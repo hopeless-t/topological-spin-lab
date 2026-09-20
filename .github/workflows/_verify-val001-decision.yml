@@ -1,0 +1,35 @@
+name: verify-val001-decision
+
+on:
+  push:
+    branches:
+      - research/val001-regulator-pilot
+    paths:
+      - research/val001_method_selection.py
+      - .github/workflows/_verify-val001-decision.yml
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install NumPy
+        run: python -m pip install "numpy>=2.0"
+
+      - name: Run reproducible decision Monte Carlo
+        run: |
+          python research/val001_method_selection.py | tee val001-decision.txt
+
+      - name: Upload decision output
+        uses: actions/upload-artifact@v4
+        with:
+          name: val001-decision-output
+          path: val001-decision.txt
+          if-no-files-found: error
+          retention-days: 30
