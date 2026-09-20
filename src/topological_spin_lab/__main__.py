@@ -6,11 +6,14 @@ from pathlib import Path
 
 from .errors import SpecValidationError
 from .evidence import write_evidence
+from .experiment_loader import load_any_experiment_spec
 from .experiments.exp001 import execute_exp001
-from .plotting import write_figures
+from .experiments.exp002 import execute_exp002
+from .plotting import write_exp002_figures, write_figures
 from .provenance import collect_provenance
 from .results import ExperimentStatus
-from .spec import load_experiment_spec
+from .spec import Exp001Spec
+from .spec_exp002 import Exp002Spec
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -30,16 +33,24 @@ def main(argv: list[str] | None = None) -> int:
         return 3
 
     try:
-        spec = load_experiment_spec(args.spec)
+        spec = load_any_experiment_spec(args.spec)
     except SpecValidationError as exc:
         print(f"INVALID: {exc}", file=sys.stderr)
         return 2
 
     try:
-        result = execute_exp001(spec)
+        if isinstance(spec, Exp001Spec):
+            result = execute_exp001(spec)
+            figure_writer = write_figures
+        elif isinstance(spec, Exp002Spec):
+            result = execute_exp002(spec)
+            figure_writer = write_exp002_figures
+        else:
+            raise TypeError(f"Unsupported spec type: {type(spec).__name__}")
+
         provenance = collect_provenance(Path.cwd())
         write_evidence(spec, result, provenance, args.out)
-        write_figures(result, args.out / "figures")
+        figure_writer(result, args.out / "figures")
     except Exception as exc:
         print(f"ERROR: {type(exc).__name__}: {exc}", file=sys.stderr)
         return 3

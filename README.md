@@ -9,9 +9,9 @@ A small, reproducible computational physics lab for exploring topological and sp
 
 **Research / educational software — early development**
 
-The first reference experiment, **EXP-001**, establishes a verified numerical baseline for a generic massless surface Dirac model.
+**EXP-001** establishes the frozen numerical baseline for a generic massless surface Dirac model. **EXP-002** adds a controlled uniform magnetic mass and verifies the resulting gap, spin tilt, and time-reversal breaking against independent analytic expectations.
 
-This repository is being built around small experiments with explicit inputs, numerical acceptance criteria, and reproducible evidence.
+This repository is built around small experiments with explicit inputs, numerical acceptance criteria, and reproducible evidence.
 
 ## At a glance
 
@@ -145,13 +145,32 @@ Plots are for human inspection.
 
 They are **not** the authority for PASS/FAIL.
 
+## EXP-002 — Magnetic Mass / Dirac Gap
+
+EXP-002 adds a generic out-of-plane magnetic mass term,
+
+```text
+H_m(k) = α (kₓ σᵧ - kᵧ σₓ) + m σ_z
+```
+
+with canonical `m = +0.020 eV`, giving a reference direct gap of `0.040 eV`.
+The value is deliberately generic and is **not** fitted to NdBi.
+
+EXP-002 verifies the analytic gap, full spin tilt, reduced helicity, explicit
+time-reversal breaking, and the `m → -m` time-reversal relation. It does not
+claim a QAH state, axion-insulator state, AFM-TI classification, edge state, or
+material-specific prediction.
+
+See [`docs/EXP-002.md`](docs/EXP-002.md) for the frozen scientific contract.
+
 ## Repository structure
 
 ```text
 topological-spin-lab/
 │
 ├── specs/
-│   └── EXP-001.json
+│   ├── EXP-001.json
+│   └── EXP-002.json
 │
 ├── src/
 │   └── topological_spin_lab/
@@ -244,6 +263,14 @@ Exit codes:
 3  ERROR
 ```
 
+## Run EXP-002
+
+```bash
+python -m topological_spin_lab run \
+    specs/EXP-002.json \
+    --out runs/EXP-002
+```
+
 ## Run the tests
 
 ```bash
@@ -285,9 +312,9 @@ Physics functions should remain deterministic and free of filesystem, network, G
 
 ```mermaid
 flowchart LR
-    E1["EXP-001<br/>Massless surface Dirac reference<br/>(implemented)"]
-    E2["EXP-002<br/>Magnetic mass / Dirac gap<br/>(next)"]
-    E3["EXP-003<br/>Boundary / domain-wall / edge-state model"]
+    E1["EXP-001<br/>Massless surface Dirac reference<br/>(implemented + frozen reference)"]
+    E2["EXP-002<br/>Magnetic mass / Dirac gap<br/>(implemented)"]
+    E3["EXP-003<br/>Boundary / domain-wall / edge-state model<br/>(next)"]
     E4["EXP-004<br/>Spin-resolved transport"]
     E5["EXP-005<br/>Disorder robustness"]
     E6["EXP-006<br/>Automated model-space exploration"]
