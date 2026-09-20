@@ -262,7 +262,7 @@ termination, magnetic order, and symmetry structure.
 
 INFERENCE FOR THIS REPOSITORY
 
-The continuum known-answer mass wall is now frozen as the regression target. A subsequent engineering Monte Carlo found that the highest-information next calculation is a small paired Wilson/staggered-grid regulator pilot rather than immediate full transport or material modelling. This decision is recorded in VAL-001 and remains numerical-method validation, not a new literature-derived physical result.
+The continuum known-answer mass wall is now frozen as the regression target. A subsequent engineering Monte Carlo found that the highest-information next calculation is a small paired Stacey/Wilson regulator pilot rather than immediate full transport or material modelling. This decision is recorded in VAL-001 and remains numerical-method validation, not a new literature-derived physical result.
 
 EXPERIMENT IMPACT
 
@@ -274,12 +274,55 @@ EXP-003
 continuum domain-wall reference
         ↓ frozen canonical target
 VAL-001
-paired Wilson / staggered regulator cross-check
+Stacey / Wilson regulator cross-check
         ↓ only after numerical regulator review
 future lattice / transport realization
 ~~~
 
 ---
+## Chain G — Why VAL-001 separates validator and transport candidate
+
+SOURCE
+
+- [P-WILSON-TI-2017] Zhou et al.: Wilson-mass regularization for TI surface
+  lattice models.
+- [P-STACEY-2021] Pacholski et al.: stationary tangent/Stacey generalized
+  eigenproblem without the same fermion-doubling structure.
+- [P-STAG-CRIT-2022] Donís Vela et al.: reminder that the word "staggered"
+  does not uniquely identify a single-cone numerical method.
+
+OBSERVATION / ESTABLISHED RESULT
+
+Different discretizations remove or relocate unwanted lattice degrees of
+freedom in different ways. A method suitable for stationary spectral
+validation need not be the same representation later used for conventional
+lattice transport.
+
+INFERENCE FOR THIS REPOSITORY
+
+A numerical method should not be its own sole validation oracle. VAL-001
+therefore uses the frozen EXP-003 continuum result as authority, Stacey/tangent
+as the independent stationary spectral validator, and keeps the best passing
+Wilson variant as a separate conventional-lattice transport candidate.
+
+EXPERIMENT IMPACT
+
+~~~text
+EXP-003 continuum reference
+        ↓
+VAL-001
+Stacey validator + Wilson r=0.5 candidate
+        ↓
+transport remains unauthorized
+        ↓
+future EXP-004 contract
+~~~
+
+The reviewed VAL-001 result is benchmark-specific and is not a universal
+ranking of regulators.
+
+---
+
 ## Current literature-to-experiment boundary
 
 As of EXP-003:

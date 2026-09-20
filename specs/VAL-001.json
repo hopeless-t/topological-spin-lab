@@ -1,0 +1,40 @@
+{
+  "schema_version": "0.1",
+  "validation_id": "VAL-001",
+  "title": "Wilson vs Stacey regulator cross-check against EXP-003",
+  "reference": {
+    "alpha_eV_A": 1.0,
+    "mass_magnitude_eV": 0.02,
+    "wall_width_A": 50.0,
+    "half_window_xi": 12.0
+  },
+  "sampling": {
+    "grid_points": [61, 121, 241],
+    "ky_Ainv": [-0.04, -0.02, 0.0, 0.02, 0.04],
+    "orientations": ["negative_to_positive", "positive_to_negative"],
+    "wilson_r": [0.5, 1.0, 1.5]
+  },
+  "classification": {
+    "wall_half_width_xi": 3.0,
+    "edge_start_xi": 9.0,
+    "zero_subspace_eV": 0.001,
+    "in_gap_margin_eV": 1e-10,
+    "wall_localization_min": 0.9,
+    "edge_localization_min": 0.9
+  },
+  "acceptance": {
+    "matrix_hermiticity_abs_eV": 1e-12,
+    "p_hermiticity_abs": 1e-12,
+    "p_min_eigenvalue_min": 1e-8,
+    "target_energy_abs_eV": 1e-8,
+    "target_overlap_min": 0.98,
+    "target_wall_weight_min": 0.98,
+    "target_edge_weight_max": 0.0001,
+    "spin_x_abs": 1e-8,
+    "finest_profile_l1_max": 0.08,
+    "max_ghost_wall_modes": 0,
+    "max_boundary_artifacts": 1,
+    "max_other_in_gap_modes": 0,
+    "require_monotone_profile_convergence": true
+  }
+}

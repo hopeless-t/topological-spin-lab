@@ -9,7 +9,7 @@ A small, reproducible computational physics lab for exploring topological and sp
 
 **Research / educational software — early development**
 
-**EXP-001** establishes the frozen numerical baseline for a generic massless surface Dirac model. **EXP-002** adds a controlled uniform magnetic mass. **EXP-003** introduces a sign-changing continuum mass wall and is now frozen as the canonical continuum boundary reference. **VAL-001** is the next numerical-method validation step before any lattice transport experiment.
+**EXP-001** establishes the frozen numerical baseline for a generic massless surface Dirac model. **EXP-002** adds a controlled uniform magnetic mass. **EXP-003** introduces a sign-changing continuum mass wall and is now frozen as the canonical continuum boundary reference. **VAL-001** now cross-checks a Stacey/tangent stationary formulation against Wilson-Dirac regulators before any lattice transport experiment. The reviewed benchmark selects Stacey as the stationary spectral validator and Wilson `r=0.5` as the conventional-lattice transport candidate; transport remains explicitly unauthorized.
 
 This repository is built around small experiments with explicit inputs, numerical acceptance criteria, and reproducible evidence.
 
@@ -187,7 +187,30 @@ linear dispersion, in-gap binding, spin, and wall-reversal chirality. It does
 not claim an NdBi domain wall, AFM-TI classification, Chern number, quantized
 transport, or freedom from artifacts in a future lattice implementation.
 
-See [`docs/EXP-003.md`](docs/EXP-003.md) for the frozen scientific contract. The next numerical-method decision is documented in [`docs/VAL-001.md`](docs/VAL-001.md).
+See [`docs/EXP-003.md`](docs/EXP-003.md) for the frozen scientific contract.
+
+## VAL-001 — Regulator Cross-Check
+
+VAL-001 compares the frozen EXP-003 continuum target against two independent
+discrete regulator families:
+
+- Stacey/tangent generalized eigenproblem for stationary spectral validation;
+- Wilson-Dirac lattice regularization with `r = {0.5, 1.0, 1.5}`.
+
+All four frozen variants pass the hard numerical gates on the benchmark, while
+the deliberately unregulated central-difference control exposes an extra
+wall-localized ghost branch and is rejected.
+
+The reviewed roles are:
+
+~~~text
+stationary spectral validator: Stacey/tangent
+transport candidate:           Wilson r=0.5
+transport authorized:          no
+~~~
+
+See [`docs/VAL-001.md`](docs/VAL-001.md) for the full contract, numerical
+results, Red Team behavior, and Monte Carlo threshold sensitivity.
 
 ## Repository structure
 
@@ -312,6 +335,17 @@ python -m topological_spin_lab run \
     --out runs/EXP-003
 ```
 
+## Run VAL-001
+
+~~~bash
+python -m topological_spin_lab validate \
+    specs/VAL-001.json \
+    --out runs/VAL-001
+~~~
+
+VAL-001 writes structured validation evidence and keeps runtime measurements
+descriptive rather than authoritative.
+
 ## Run the tests
 
 ```bash
@@ -356,8 +390,8 @@ flowchart LR
     E1["EXP-001<br/>Massless surface Dirac reference<br/>(implemented + frozen reference)"]
     E2["EXP-002<br/>Magnetic mass / Dirac gap<br/>(implemented + frozen reference)"]
     E3["EXP-003<br/>Continuum mass-domain-wall reference<br/>(implemented + frozen reference)"]
-    V1["VAL-001<br/>Wilson vs staggered regulator cross-check<br/>(next)"]
-    E4["EXP-004<br/>Spin-resolved transport<br/>(deferred pending VAL-001)"]
+    V1["VAL-001<br/>Stacey vs Wilson regulator cross-check<br/>(implemented + reviewed)"]
+    E4["EXP-004<br/>Spin-resolved transport<br/>(deferred; candidate only)"]
     E5["EXP-005<br/>Disorder robustness"]
     E6["EXP-006<br/>Automated model-space exploration"]
     E7["EXP-007<br/>Literature-informed / NdBi-inspired study"]
