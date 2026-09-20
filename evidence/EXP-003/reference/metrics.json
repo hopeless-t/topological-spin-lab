@@ -1,0 +1,87 @@
+{
+  "checks": [
+    {
+      "limit": 1e-12,
+      "name": "operator_residual",
+      "observed": 6.1331736667334966e-18,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-08,
+      "name": "finite_window_normalization",
+      "observed": 7.57541807061557e-11,
+      "passed": true,
+      "unit": "1"
+    },
+    {
+      "limit": 1e-12,
+      "name": "density_symmetry",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "A^-1"
+    },
+    {
+      "limit": 1e-12,
+      "name": "center_peak",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "A"
+    },
+    {
+      "limit": 1e-12,
+      "name": "mass_center",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-12,
+      "name": "dispersion",
+      "observed": 6.938893903907228e-18,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-12,
+      "name": "in_gap",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-10,
+      "name": "spin_vector",
+      "observed": 2.220446049250313e-16,
+      "passed": true,
+      "unit": "1"
+    },
+    {
+      "limit": 1e-12,
+      "name": "wall_reversal_dispersion",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "eV"
+    },
+    {
+      "limit": 1e-10,
+      "name": "wall_reversal_spin",
+      "observed": 0.0,
+      "passed": true,
+      "unit": "1"
+    }
+  ],
+  "metrics": {
+    "center_peak_position_abs_A": 0.0,
+    "finite_window_norm_error": 7.57541807061557e-11,
+    "mass_center_abs_eV": 0.0,
+    "max_density_symmetry_error_Ainv": 0.0,
+    "max_dispersion_error_eV": 6.938893903907228e-18,
+    "max_in_gap_excess_eV": 0.0,
+    "max_operator_residual_eV": 6.1331736667334966e-18,
+    "max_reversal_dispersion_error_eV": 0.0,
+    "max_reversal_spin_error": 0.0,
+    "max_spin_vector_error": 2.220446049250313e-16
+  },
+  "status": "PASS"
+}
