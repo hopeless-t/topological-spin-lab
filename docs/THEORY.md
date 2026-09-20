@@ -2,25 +2,25 @@
 
 EXP-001 uses the effective surface Hamiltonian
 
-[
+$$
 H_0(\mathbf{k}) = \alpha(k_x\sigma_y-k_y\sigma_x),
-]
+$$
 
 with the surface normal convention fixed to `+z`.
 
 The eigenvalues are
 
-[
+$$
 E_\pm = \pm\alpha\sqrt{k_x^2+k_y^2}.
-]
+$$
 
 For nonzero momentum, the upper-band spin expectation is
 
-[
+$$
 \langle\boldsymbol{\sigma}\rangle_+
 =
 \frac{1}{|\mathbf{k}|}(-k_y,k_x,0),
-]
+$$
 
 and the lower band has the opposite spin.
 
