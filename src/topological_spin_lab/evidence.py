@@ -6,8 +6,9 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from .provenance import Provenance
-from .results import Exp001Result
+from .results import Exp001Result, Exp002Result
 from .spec import Exp001Spec, spec_sha256
+from .spec_exp002 import Exp002Spec
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,8 +27,8 @@ def _write_json(path: Path, payload: object) -> None:
 
 
 def write_evidence(
-    spec: Exp001Spec,
-    result: Exp001Result,
+    spec: Exp001Spec | Exp002Spec,
+    result: Exp001Result | Exp002Result,
     provenance: Provenance,
     output_dir: Path,
 ) -> EvidencePaths:
