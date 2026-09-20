@@ -244,19 +244,25 @@ Acceptance
 Evidence
 ```
 
-Canonical evidence may include:
+Canonical evidence consists of a manifest, numerical metrics, and experiment-specific structured observation tables.
 
 ```text
-manifest.json
-metrics.json
-spectrum.csv
-spin_ring.csv
-figures/
+EXP-001 / EXP-002
+  manifest.json
+  metrics.json
+  spectrum.csv
+  spin_ring.csv
+
+EXP-003
+  manifest.json
+  metrics.json
+  profile.csv
+  dispersion.csv
 ```
 
 Numerical metrics and structured data are authoritative.
 
-Rendered figures are presentation artifacts.
+Rendered figures are human-inspection artifacts and are intentionally non-canonical.
 
 Raw eigenvectors are not used as canonical evidence because their global complex phase is not physically observable.
 
