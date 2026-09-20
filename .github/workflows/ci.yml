@@ -37,3 +37,9 @@ jobs:
           python -m topological_spin_lab run \
             specs/EXP-002.json \
             --out runs/EXP-002-ci
+
+      - name: Run EXP-003
+        run: |
+          python -m topological_spin_lab run \
+            specs/EXP-003.json \
+            --out runs/EXP-003-ci
