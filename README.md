@@ -397,7 +397,7 @@ It does not decide whether its own result is scientifically valid.
 
 Primary scientific references and model-specific sources are maintained in [`docs/REFERENCES.md`](docs/REFERENCES.md).
 
-The source-to-experiment lineage and Hakken questions are tracked in [`docs/LITERATURE_MAP.md`](docs/LITERATURE_MAP.md). Visual-documentation rules are recorded in [`docs/VISUALS.md`](docs/VISUALS.md).
+The source-to-experiment lineage and Hakken questions are tracked in [`docs/LITERATURE_MAP.md`](docs/LITERATURE_MAP.md). Visual-documentation rules are recorded in [`docs/VISUALS.md`](docs/VISUALS.md). The reusable repository-shape prototype extracted from this project is recorded in [`docs/RESEARCH_REPOSITORY_PATTERN.md`](docs/RESEARCH_REPOSITORY_PATTERN.md).
 
 Whenever possible, the repository distinguishes:
 
