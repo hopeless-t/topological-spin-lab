@@ -73,3 +73,35 @@ class Exp001Result:
             if all(check.passed for check in self.checks)
             else ExperimentStatus.FAIL
         )
+
+
+@dataclass(frozen=True, slots=True)
+class Exp002Metrics:
+    max_hermiticity_residual_eV: float
+    max_analytic_spectrum_error_eV: float
+    direct_gap_error_eV: float
+    max_spectral_pairing_error_eV: float
+    max_spin_norm_error: float
+    max_spin_momentum_dot: float
+    max_spin_vector_error: float
+    max_helicity_error: float
+    center_spin_error: float
+    max_tr_breaking_magnitude_error_eV: float
+    max_tr_mass_flip_residual_eV: float
+
+
+@dataclass(frozen=True, slots=True)
+class Exp002Result:
+    experiment_id: str
+    checks: tuple[CheckResult, ...]
+    metrics: Exp002Metrics
+    spectrum: tuple[SpectrumPoint, ...]
+    spin_ring: tuple[SpinPoint, ...]
+
+    @property
+    def status(self) -> ExperimentStatus:
+        return (
+            ExperimentStatus.PASS
+            if all(check.passed for check in self.checks)
+            else ExperimentStatus.FAIL
+        )
