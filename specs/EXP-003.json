@@ -1,0 +1,36 @@
+{
+  "schema_version": "0.1",
+  "experiment_id": "EXP-003",
+  "title": "Continuum magnetic mass domain-wall reference",
+  "model": {
+    "name": "continuum_mass_domain_wall",
+    "surface_normal": "+z",
+    "alpha_eV_A": 1.0,
+    "mass_magnitude_eV": 0.02,
+    "wall_width_A": 50.0,
+    "orientation": "negative_to_positive"
+  },
+  "sampling": {
+    "profile": {
+      "half_window_xi": 12.0,
+      "points": 241
+    },
+    "dispersion": {
+      "ky_min_Ainv": -0.05,
+      "ky_max_Ainv": 0.05,
+      "points": 101
+    }
+  },
+  "acceptance": {
+    "operator_residual_eV": 1e-12,
+    "finite_window_norm_abs": 1e-8,
+    "density_symmetry_abs_Ainv": 1e-12,
+    "center_peak_abs_A": 1e-12,
+    "mass_center_abs_eV": 1e-12,
+    "dispersion_abs_eV": 1e-12,
+    "in_gap_excess_eV": 1e-12,
+    "spin_vector_abs": 1e-10,
+    "reversal_dispersion_abs_eV": 1e-12,
+    "reversal_spin_abs": 1e-10
+  }
+}
