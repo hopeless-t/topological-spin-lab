@@ -2,6 +2,26 @@
 
 This document records how literature connects to the experiment sequence. It is not a claim that every cited result has been reproduced here.
 
+## High-level navigation
+
+The diagram below is a **navigation map, not a formal citation graph**. Detailed source roles and boundaries are documented in [`REFERENCES.md`](REFERENCES.md).
+
+```mermaid
+flowchart LR
+    A["TI foundations<br/>Fu & Kane 2007"] --> B["Surface Dirac & spin<br/>Zhang 2009 · Hsieh 2009 · Liu 2010"]
+    B --> X1["EXP-001<br/>Massless Dirac reference"]
+
+    C["Topological response<br/>Qi-Hughes-Zhang 2008<br/>Essin-Moore-Vanderbilt 2009"] --> D["Magnetic topology<br/>QAH theory/experiment 2010–2013"]
+    D --> X2["EXP-002<br/>Magnetic mass / gap"]
+
+    F["AFM topology<br/>Mong-Essin-Moore 2010"] --> G["Intrinsic AFM materials<br/>MnBi2Te4 2019"]
+    G --> H["NdBi lineage<br/>2023 → 2026"]
+    H --> X2
+    H --> X3["EXP-003<br/>Boundary / domain questions"]
+
+    J["High-throughput magnetic topology<br/>Xu et al. 2020"] --> X6["EXP-006 / EXP-007<br/>Model search → literature-informed study"]
+```
+
 The map uses four layers:
 
 ~~~text
