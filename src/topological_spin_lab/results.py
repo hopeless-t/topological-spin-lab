@@ -105,3 +105,52 @@ class Exp002Result:
             if all(check.passed for check in self.checks)
             else ExperimentStatus.FAIL
         )
+
+
+@dataclass(frozen=True, slots=True)
+class DomainWallProfilePoint:
+    x_A: float
+    mass_eV: float
+    probability_density_Ainv: float
+
+
+@dataclass(frozen=True, slots=True)
+class DomainWallDispersionPoint:
+    ky_Ainv: float
+    energy_eV: float
+    analytic_energy_eV: float
+    bulk_edge_abs_eV: float
+    binding_margin_eV: float
+
+
+@dataclass(frozen=True, slots=True)
+class Exp003Metrics:
+    max_operator_residual_eV: float
+    finite_window_norm_error: float
+    max_density_symmetry_error_Ainv: float
+    center_peak_position_abs_A: float
+    mass_center_abs_eV: float
+    max_dispersion_error_eV: float
+    max_in_gap_excess_eV: float
+    max_spin_vector_error: float
+    max_reversal_dispersion_error_eV: float
+    max_reversal_spin_error: float
+
+
+@dataclass(frozen=True, slots=True)
+class Exp003Result:
+    experiment_id: str
+    checks: tuple[CheckResult, ...]
+    metrics: Exp003Metrics
+    profile: tuple[DomainWallProfilePoint, ...]
+    dispersion: tuple[DomainWallDispersionPoint, ...]
+    spin: tuple[float, float, float]
+    reversed_spin: tuple[float, float, float]
+
+    @property
+    def status(self) -> ExperimentStatus:
+        return (
+            ExperimentStatus.PASS
+            if all(check.passed for check in self.checks)
+            else ExperimentStatus.FAIL
+        )
