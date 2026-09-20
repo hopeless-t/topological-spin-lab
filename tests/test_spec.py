@@ -52,8 +52,16 @@ def test_nonpositive_alpha_is_invalid(bad: float) -> None:
         parse_experiment_spec(raw)
 
 
+def test_spectrum_range_must_include_zero() -> None:
+    raw = canonical_raw()
+    raw["sampling"]["spectrum"]["min_Ainv"] = 0.01
+    raw["sampling"]["spectrum"]["max_Ainv"] = 0.11
+    with pytest.raises(SpecValidationError, match="range must include kx = 0"):
+        parse_experiment_spec(raw)
+
+
 def test_spectrum_grid_must_include_zero() -> None:
     raw = canonical_raw()
     raw["sampling"]["spectrum"]["points"] = 200
-    with pytest.raises(SpecValidationError, match="include kx = 0"):
+    with pytest.raises(SpecValidationError, match="grid must include kx = 0"):
         parse_experiment_spec(raw)
