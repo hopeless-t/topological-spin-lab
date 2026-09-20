@@ -13,6 +13,14 @@ The first reference experiment, **EXP-001**, establishes a verified numerical ba
 
 This repository is being built around small experiments with explicit inputs, numerical acceptance criteria, and reproducible evidence.
 
+## At a glance
+
+![Project identity Venn diagram](docs/assets/project-identity-venn.svg)
+
+*Project identity diagram — a navigation aid, not a scientific result.*
+
+The repository sits at the intersection of **computational physics**, **reproducible experiments**, and **literature-grounded research**. Primary sources motivate models and questions; experiment contracts determine what is actually tested; structured evidence records what the code observed.
+
 ## Why this project exists
 
 Recent research on magnetic topological materials, including work on NdBi, demonstrates electronic states in which magnetism, topology, momentum, and spin become strongly coupled.
@@ -45,25 +53,26 @@ A model being inspired by a material does not make it a model of that material.
 
 ## Design principle
 
-The project separates:
+The project separates intended experiments, deterministic physics, scientific acceptance, and serialized evidence.
 
-```text
-Experiment Spec
-      ↓
-Physical Model
-      ↓
-Numerical Calculation
-      ↓
-Observable
-      ↓
-Acceptance Checks
-      ↓
-Evidence
+```mermaid
+flowchart LR
+    S["Experiment Spec"] --> V["Strict validation"]
+    V --> M["Physical Model"]
+    M --> N["Numerical Calculation"]
+    N --> O["Observable"]
+    O --> C["Acceptance Checks"]
+    C --> E["Evidence"]
+    C -->|"one or more checks fail"| F["FAIL"]
+    S -->|"invalid spec"| I["INVALID"]
+
+    P["Provenance"] --> E
+    O --> G["Figures<br/>human inspection only"]
 ```
 
 A successful program execution is not automatically a successful physics experiment.
 
-`PASS` is derived from explicit numerical checks.
+`PASS` is derived from explicit numerical checks. Figures are explanatory artifacts, not the authority for acceptance.
 
 ## Experiment states
 
@@ -274,30 +283,20 @@ Physics functions should remain deterministic and free of filesystem, network, G
 
 ## Planned experiment sequence
 
-```text
-EXP-001
-Massless surface Dirac reference
-        ↓
-EXP-002
-Magnetic mass / Dirac gap
-        ↓
-EXP-003
-Boundary and edge-state model
-        ↓
-EXP-004
-Spin-resolved transport
-        ↓
-EXP-005
-Disorder robustness
-        ↓
-EXP-006
-Automated parameter exploration
-        ↓
-EXP-007
-Literature-informed / NdBi-inspired parameter study
+```mermaid
+flowchart LR
+    E1["EXP-001<br/>Massless surface Dirac reference<br/><b>implemented</b>"]
+    E2["EXP-002<br/>Magnetic mass / Dirac gap<br/><b>next</b>"]
+    E3["EXP-003<br/>Boundary / domain-wall / edge-state model"]
+    E4["EXP-004<br/>Spin-resolved transport"]
+    E5["EXP-005<br/>Disorder robustness"]
+    E6["EXP-006<br/>Automated model-space exploration"]
+    E7["EXP-007<br/>Literature-informed / NdBi-inspired study"]
+
+    E1 --> E2 --> E3 --> E4 --> E5 --> E6 --> E7
 ```
 
-Later experiment numbers describe intent, not guaranteed implementation.
+Later experiment numbers describe intent, not guaranteed implementation. A roadmap node is **not** an implemented result.
 
 Each stage must earn its way into the repository through a defined experiment and acceptance contract.
 
@@ -327,11 +326,9 @@ It does not decide whether its own result is scientifically valid.
 
 ## References
 
-Primary scientific references and model-specific sources are maintained in:
+Primary scientific references and model-specific sources are maintained in [`docs/REFERENCES.md`](docs/REFERENCES.md).
 
-```text
-docs/REFERENCES.md
-```
+The source-to-experiment lineage and Hakken questions are tracked in [`docs/LITERATURE_MAP.md`](docs/LITERATURE_MAP.md). Visual-documentation rules are recorded in [`docs/VISUALS.md`](docs/VISUALS.md).
 
 Whenever possible, the repository distinguishes:
 
