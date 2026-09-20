@@ -20,7 +20,7 @@ class CheckResult:
 
     @property
     def passed(self) -> bool:
-        return self.observed <= self.limit
+        return bool(self.observed <= self.limit)
 
 
 @dataclass(frozen=True, slots=True)
