@@ -35,5 +35,21 @@ Consequences used by EXP-001:
   is `-1`;
 - the massless model is time-reversal symmetric.
 
+## Source lineage
+
+The effective-surface-model lineage is documented in
+[`REFERENCES.md`](REFERENCES.md), especially:
+
+- `P-TI-2007` for the three-dimensional topological-insulator classification;
+- `P-BI2SE3-2009` for the single-surface-Dirac-cone material/model bridge;
+- `P-SPIN-2009` for experimental spin-momentum locking;
+- `P-MODEL-2010` for the derived effective surface Hamiltonian.
+
+The project-specific Hakken chain from those sources to EXP-001 and later
+experiments is recorded in [`LITERATURE_MAP.md`](LITERATURE_MAP.md).
+
+These citations establish the model lineage. They do not make EXP-001 a
+simulation of Bi2Se3, NdBi, or any other specific material.
+
 No lattice topology, magnetic gap, edge transport, or material-specific fit is
 claimed by EXP-001.
