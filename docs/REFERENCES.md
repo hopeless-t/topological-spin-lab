@@ -9,8 +9,8 @@
 
 2. Institute for Solid State Physics, The University of Tokyo,
    press release, 2026-09-17:
-   "Direct observation of magnetic Dirac electrons on an antiferromagnet
-   surface" (Japanese press release).
+   "反強磁性体の表面に、磁石の性質を帯びた奇妙な電子が出現
+   ― スピンの向きが100％揃った電流の実現へ ―".
    https://www.issp.u-tokyo.ac.jp/maincontents/news2.html?pid=32233
 
 ## Background
