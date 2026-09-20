@@ -1,0 +1,57 @@
+name: generate-exp001-reference
+
+on:
+  push:
+    branches:
+      - evidence/exp001-reference
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout canonical source
+        uses: actions/checkout@v4
+        with:
+          ref: 042e406528065a1d9a8b1fe4ac16ac7418f6814c
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Test canonical source
+        env:
+          MPLBACKEND: Agg
+        run: pytest
+
+      - name: Generate EXP-001 reference evidence
+        env:
+          MPLBACKEND: Agg
+        run: |
+          python -m topological_spin_lab run \
+            specs/EXP-001.json \
+            --out reference-artifact
+          rm -rf reference-artifact/figures
+          test -f reference-artifact/manifest.json
+          test -f reference-artifact/metrics.json
+          test -f reference-artifact/spectrum.csv
+          test -f reference-artifact/spin_ring.csv
+
+      - name: Upload canonical evidence candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-reference-candidate
+          path: |
+            reference-artifact/manifest.json
+            reference-artifact/metrics.json
+            reference-artifact/spectrum.csv
+            reference-artifact/spin_ring.csv
+          if-no-files-found: error
+          retention-days: 30
