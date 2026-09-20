@@ -5,7 +5,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from .results import Exp001Result, Exp002Result
+from .results import Exp001Result, Exp002Result, Exp003Result
 
 
 def _write_spectrum_figure(
@@ -108,3 +108,46 @@ def write_exp002_figures(
     plt.close(fig)
 
     return spectrum_path, spin_path, spin_z_path
+
+
+
+def write_exp003_figures(
+    result: Exp003Result,
+    output_dir: Path,
+) -> tuple[Path, Path]:
+    """Render EXP-003 human-inspection figures from computed observations."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    profile_path = output_dir / "domain_wall_profile.png"
+    x = np.array([point.x_A for point in result.profile])
+    mass = np.array([point.mass_eV for point in result.profile])
+    density = np.array([point.probability_density_Ainv for point in result.profile])
+
+    fig, ax = plt.subplots()
+    ax.plot(x, mass, label="mass (eV)")
+    ax.plot(x, density, label="probability density (A^-1)")
+    ax.set_xlabel("x (A)")
+    ax.set_title("EXP-003: domain wall and localized bound mode")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(profile_path, dpi=160)
+    plt.close(fig)
+
+    dispersion_path = output_dir / "domain_wall_dispersion.png"
+    ky = np.array([point.ky_Ainv for point in result.dispersion])
+    energy = np.array([point.energy_eV for point in result.dispersion])
+    bulk = np.array([point.bulk_edge_abs_eV for point in result.dispersion])
+
+    fig, ax = plt.subplots()
+    ax.plot(ky, energy, label="bound mode")
+    ax.plot(ky, bulk, label="+ bulk edge")
+    ax.plot(ky, -bulk, label="- bulk edge")
+    ax.set_xlabel(r"$k_y$ ($\AA^{-1}$)")
+    ax.set_ylabel("Energy (eV)")
+    ax.set_title("EXP-003: chiral domain-wall dispersion")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(dispersion_path, dpi=160)
+    plt.close(fig)
+
+    return profile_path, dispersion_path
