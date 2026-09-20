@@ -262,10 +262,7 @@ termination, magnetic order, and symmetry structure.
 
 INFERENCE FOR THIS REPOSITORY
 
-The highest-information next calculation is a known-answer continuum mass wall
-whose wave function, spin, localization, and dispersion can be checked without
-a lattice regulator. This becomes the regression target for any later Wilson,
-staggered-grid, or Kwant implementation.
+The continuum known-answer mass wall is now frozen as the regression target. A subsequent engineering Monte Carlo found that the highest-information next calculation is a small paired Wilson/staggered-grid regulator pilot rather than immediate full transport or material modelling. This decision is recorded in VAL-001 and remains numerical-method validation, not a new literature-derived physical result.
 
 EXPERIMENT IMPACT
 
@@ -275,7 +272,10 @@ uniform mass
         ↓ sign-changing m(x)
 EXP-003
 continuum domain-wall reference
-        ↓ only after reference is frozen
+        ↓ frozen canonical target
+VAL-001
+paired Wilson / staggered regulator cross-check
+        ↓ only after numerical regulator review
 future lattice / transport realization
 ~~~
 
