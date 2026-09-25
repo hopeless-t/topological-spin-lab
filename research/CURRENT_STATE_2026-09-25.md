@@ -199,3 +199,16 @@ API changes. The qualification is now split into two deterministic lanes:
 Both run the same transport/mode/spin known-answer smoke on public Actions.
 
 No repository-wide dependency decision has been made.
+
+
+## Bounce EXP004-C06 — compatibility midpoint
+
+Run 36116861955:
+- stable Kwant 1.5.0 + NumPy 1.26.4: deterministic backend smoke PASS;
+- pinned development Kwant ef12fa0d7 + NumPy 2.x: build environment failed
+  because isolated build could not see SciPy Cython headers.
+
+The development lane is being rerun with `--no-build-isolation`, using the
+explicitly prepared NumPy/SciPy/Meson environment.
+
+No repository dependency has been selected yet.

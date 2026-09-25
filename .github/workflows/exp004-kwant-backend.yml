@@ -46,7 +46,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install "numpy>=2,<3" "scipy>=1.14,<2" \
             "meson-python" "ninja" "cython" "packaging" "setuptools-scm"
-          python -m pip install \
+          python -m pip install --no-build-isolation \
             "git+https://gitlab.kwant-project.org/kwant/kwant.git@ef12fa0d7"
 
       - name: Run stable deterministic smoke
