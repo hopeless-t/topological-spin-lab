@@ -212,3 +212,18 @@ The development lane is being rerun with `--no-build-isolation`, using the
 explicitly prepared NumPy/SciPy/Meson environment.
 
 No repository dependency has been selected yet.
+
+
+## Bounce EXP004-C07 — backend primitive qualification complete
+
+Public Actions run `36117118891` passed the exact known-answer smoke in both:
+- released Kwant 1.5.0 + NumPy 1.26.4;
+- pinned Kwant `1.5.1.dev68+gef12fa0d7` + NumPy 2.5.3.
+
+Council + Monte Carlo selected the pinned NumPy-2 lane only for the next bounded
+research spike. The stable lane is retained as fallback/cross-check.
+
+Kwant is **not** added to `pyproject.toml` yet.
+
+Next bounce: Wilson r=0.5 lead-mode/band smoke. Full EXP-004 scattering device
+remains unauthorized.

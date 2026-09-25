@@ -7,6 +7,8 @@ on:
     paths:
       - research/exp004_method_selection.py
       - evidence/EXP-004/design/exp004_method_selection.json
+      - research/exp004_kwant_lane_selection.py
+      - evidence/EXP-004/backend/exp004_kwant_lane_selection.json
       - .github/workflows/exp004-contract-research.yml
 
 jobs:
@@ -24,3 +26,8 @@ jobs:
         run: |
           python research/exp004_method_selection.py \
             --check evidence/EXP-004/design/exp004_method_selection.json
+
+      - name: Recompute Kwant-lane engineering sensitivity
+        run: |
+          python research/exp004_kwant_lane_selection.py \
+            --check evidence/EXP-004/backend/exp004_kwant_lane_selection.json
