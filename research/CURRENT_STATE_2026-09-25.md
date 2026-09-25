@@ -149,3 +149,25 @@ acceptance tolerances            NOT FROZEN
 
 Next bounce: public-GitHub-Actions backend qualification and minimal
 lead/scattering smoke test. No EXP-004 scientific PASS claim yet.
+
+
+## Bounce EXP004-C03 — backend qualification launched
+
+Fresh exploration confirmed that the current PyPI stable Kwant target is
+`1.5.0`. Because the qualification question is deterministic, this bounce
+uses a known-answer scattering test rather than Monte Carlo.
+
+Committed:
+- `research/exp004_kwant_backend_smoke.py`
+- `.github/workflows/exp004-kwant-backend.yml`
+- `research/EXP004_KWANT_BACKEND_QUALIFICATION_2026-09-25.md`
+
+The workflow tests public GitHub Actions + Python 3.12 + Kwant 1.5.0 using a
+single-propagating-spin-channel chain.
+
+Current gate remains:
+
+```text
+Kwant backend QUALIFICATION RUN PENDING
+EXP-004 transport implementation NOT AUTHORIZED
+```
