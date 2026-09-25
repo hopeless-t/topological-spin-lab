@@ -1,0 +1,26 @@
+name: exp004-contract-research
+
+on:
+  push:
+    branches:
+      - research/exp004-reentry-2026-09-25
+    paths:
+      - research/exp004_method_selection.py
+      - evidence/EXP-004/design/exp004_method_selection.json
+      - .github/workflows/exp004-contract-research.yml
+
+jobs:
+  decision-support-repro:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install NumPy only
+        run: python -m pip install "numpy>=2,<3"
+      - name: Recompute frozen EXP-004 engineering Monte Carlo
+        run: |
+          python research/exp004_method_selection.py \
+            --check evidence/EXP-004/design/exp004_method_selection.json

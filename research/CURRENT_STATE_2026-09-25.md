@@ -118,3 +118,34 @@ correct repository
 ```
 
 This file is a recovery/status artifact, not a new scientific result.
+
+
+## Bounce EXP004-C01 — contract exploration checkpoint
+
+Completed:
+- refreshed transport/Wilson/chiral-channel/spin-observable literature;
+- decomposed the minimum EXP-004 problem;
+- pseudo-Council converged on a clean two-terminal Wilson domain-wall calibration;
+- selected a periodic transverse double-wall geometry to make the compensating channel explicit;
+- selected flux-mode spin expectation rather than an unqualified conserved-spin-current claim;
+- ran 300,000-draw-per-scenario engineering Monte Carlo over five experiment shapes;
+- selected Kwant as the **first backend qualification target**, not as physics authority.
+
+Durable artifacts:
+- `docs/EXP-004.md`
+- `research/EXP004_LITERATURE_REFRESH_2026-09-25.md`
+- `research/exp004_method_selection.py`
+- `evidence/EXP-004/design/exp004_method_selection.json`
+- `.github/workflows/exp004-contract-research.yml`
+
+Current gate:
+
+```text
+EXP-004 Scientific Contract      DRAFT
+transport implementation         NOT AUTHORIZED
+Kwant backend                    NOT QUALIFIED
+acceptance tolerances            NOT FROZEN
+```
+
+Next bounce: public-GitHub-Actions backend qualification and minimal
+lead/scattering smoke test. No EXP-004 scientific PASS claim yet.
