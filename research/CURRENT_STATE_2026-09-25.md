@@ -227,3 +227,22 @@ Kwant is **not** added to `pyproject.toml` yet.
 
 Next bounce: Wilson r=0.5 lead-mode/band smoke. Full EXP-004 scattering device
 remains unauthorized.
+
+
+## Bounce EXP004-C08 — Wilson lead-mode smoke launched
+
+The first physical bridge from VAL-001 into Kwant is now isolated as a
+lead-only calculation.
+
+Candidate:
+- isotropic 2D Wilson extension with r=0.5;
+- a=10 A, periodic circumference 800 A;
+- two walls separated by 8 xi;
+- pinned Kwant dev ef12fa0d7 + NumPy 2 lane.
+
+The smoke checks low-k chirality/spin/localization plus an r=0 doubler red-team
+at the y Brillouin-zone edge.
+
+No finite scattering device is built.
+
+Gate: Actions result pending.
