@@ -186,3 +186,16 @@ Correction follows Kwant's current source-build guidance:
 Scientific contract and smoke known answer are unchanged.
 
 Gate remains PENDING until the corrected Actions run completes.
+
+
+## Bounce EXP004-C05 — Kwant compatibility matrix launched
+
+The corrected stable build reached the compiler but failed against NumPy 2.x
+API changes. The qualification is now split into two deterministic lanes:
+
+- stable Kwant 1.5.0 + NumPy 1.26.4;
+- pinned upstream development snapshot `ef12fa0d7` + NumPy 2.x.
+
+Both run the same transport/mode/spin known-answer smoke on public Actions.
+
+No repository-wide dependency decision has been made.

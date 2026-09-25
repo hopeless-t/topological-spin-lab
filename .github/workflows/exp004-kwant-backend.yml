@@ -11,7 +11,14 @@ on:
 jobs:
   kwant-smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        lane:
+          - stable_numpy1
+          - dev_numpy2
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,21 +30,44 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            build-essential gfortran libopenblas-dev liblapack-dev
+            build-essential gfortran libopenblas-dev liblapack-dev \
+            pkg-config ninja-build meson cmake
 
-      - name: Install canonical numerical stack and Kwant stable
+      - name: Install stable Kwant 1.5.0 lane
+        if: matrix.lane == 'stable_numpy1'
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install "numpy>=2,<3" "scipy>=1.14,<2" "tinyarray>=1.2.2"
+          python -m pip install "numpy==1.26.4" "scipy==1.14.1" "tinyarray>=1.2.2"
           python -m pip install --no-build-isolation "kwant==1.5.0"
 
-      - name: Run deterministic Kwant known-answer smoke
+      - name: Install pinned Kwant development lane
+        if: matrix.lane == 'dev_numpy2'
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install "numpy>=2,<3" "scipy>=1.14,<2" \
+            "meson-python" "ninja" "cython" "packaging" "setuptools-scm"
+          python -m pip install \
+            "git+https://gitlab.kwant-project.org/kwant/kwant.git@ef12fa0d7"
+
+      - name: Run stable deterministic smoke
+        if: matrix.lane == 'stable_numpy1'
         run: |
           python research/exp004_kwant_backend_smoke.py \
-            --out runs/EXP-004-backend/kwant-smoke.json
+            --lane stable_numpy1 \
+            --expected-kwant-prefix 1.5.0 \
+            --out runs/EXP-004-backend/kwant-smoke-stable_numpy1.json
+
+      - name: Run development deterministic smoke
+        if: matrix.lane == 'dev_numpy2'
+        run: |
+          python research/exp004_kwant_backend_smoke.py \
+            --lane dev_numpy2 \
+            --expected-kwant-prefix 1.5.1.dev \
+            --out runs/EXP-004-backend/kwant-smoke-dev_numpy2.json
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: exp004-kwant-backend-smoke
-          path: runs/EXP-004-backend/kwant-smoke.json
-          if-no-files-found: error
+          name: exp004-kwant-backend-${{ matrix.lane }}
+          path: runs/EXP-004-backend/*.json
+          if-no-files-found: ignore

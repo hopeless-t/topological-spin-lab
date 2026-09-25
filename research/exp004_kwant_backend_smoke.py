@@ -60,7 +60,7 @@ def spin_z_of_first_incoming_state(system) -> float:
     return float((numerator / norm).real)
 
 
-def run() -> dict:
+def run(expected_kwant_prefix: str, lane: str) -> dict:
     system = build_system()
     smatrix = kwant.smatrix(system, energy=ENERGY)
     s = np.asarray(smatrix.data)
@@ -75,7 +75,7 @@ def run() -> dict:
     n_right = int(smatrix.num_propagating(1))
 
     checks = {
-        "kwant_version_is_1_5_0": kwant.__version__ == "1.5.0",
+        "kwant_version_matches_expected_prefix": kwant.__version__.startswith(expected_kwant_prefix),
         "one_left_propagating_mode": n_left == 1,
         "one_right_propagating_mode": n_right == 1,
         "unitarity": unitarity_residual <= ATOL,
@@ -85,7 +85,8 @@ def run() -> dict:
     }
 
     return {
-        "schema_version": "exp004-kwant-backend-smoke-v0.1",
+        "schema_version": "exp004-kwant-backend-smoke-v0.2",
+        "lane": lane,
         "status": "PASS" if all(checks.values()) else "FAIL",
         "claim_ceiling": (
             "Backend qualification only. This does not validate the Wilson "
@@ -117,9 +118,11 @@ def run() -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", required=True)
+    parser.add_argument("--lane", required=True)
+    parser.add_argument("--expected-kwant-prefix", required=True)
     args = parser.parse_args()
 
-    result = run()
+    result = run(args.expected_kwant_prefix, args.lane)
     text = json.dumps(result, indent=2, sort_keys=True) + "\n"
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.out).write_text(text, encoding="utf-8")
