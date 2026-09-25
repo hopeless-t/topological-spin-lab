@@ -171,3 +171,18 @@ Current gate remains:
 Kwant backend QUALIFICATION RUN PENDING
 EXP-004 transport implementation NOT AUTHORIZED
 ```
+
+
+## Bounce EXP004-C04 — Kwant build correction
+
+First qualification run `36116441805` reached public Ubuntu 24.04 Actions but
+failed before the smoke calculation because pip build isolation could not see
+the already installed NumPy headers.
+
+Correction follows Kwant's current source-build guidance:
+- install NumPy/SciPy/tinyarray first;
+- install Kwant 1.5.0 with `--no-build-isolation`.
+
+Scientific contract and smoke known answer are unchanged.
+
+Gate remains PENDING until the corrected Actions run completes.
