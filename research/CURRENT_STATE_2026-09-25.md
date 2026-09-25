@@ -246,3 +246,29 @@ at the y Brillouin-zone edge.
 No finite scattering device is built.
 
 Gate: Actions result pending.
+
+
+## Bounce EXP004-C09 — Wilson lead-mode bridge PASS
+
+Public Actions run `36118618663` passed the C08 lead-only physical bridge.
+
+Key evidence:
+- canonical wall: E=+0.0049979231 eV, dE/dk=+0.0998748569 eV,
+  <sigma_x>=-0.999998773, wall weight=0.96926;
+- opposite wall: signs/spin reversed with the same localization quality;
+- Wilson r=0.5 Brillouin-edge minimum |E|=0.08119 eV;
+- naive r=0 control minimum |E|≈2.74e-19 eV;
+- Kwant Bands/direct Bloch residual < 7e-16 eV.
+
+Artifact `10855718954`, zip SHA-256
+`e5b6d80d544c60d1a66b0c3d3054955c5cf8625f2c6273ad413a8786ba4166d3`.
+
+Gate:
+```text
+Wilson lead-mode bridge  PASS
+convergence              NOT ESTABLISHED
+finite scattering device NOT AUTHORIZED
+```
+
+Next bounce: freeze and execute a compact convergence pilot before any device
+region is created.
