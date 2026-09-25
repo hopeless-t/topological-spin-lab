@@ -1,0 +1,174 @@
+{
+  "schema_version": "exp004-kwant-lane-selection-v0.1",
+  "seed": 20260925,
+  "trials_per_scenario": 300000,
+  "criteria": [
+    "release_stability",
+    "numpy2_alignment",
+    "reproducibility",
+    "maintenance",
+    "ci_cost",
+    "tooling_maturity",
+    "future_support",
+    "low_isolation_complexity"
+  ],
+  "means": {
+    "stable_isolated_numpy1": [
+      0.96,
+      0.42,
+      0.95,
+      0.66,
+      0.58,
+      0.96,
+      0.55,
+      0.48
+    ],
+    "pinned_dev_numpy2": [
+      0.62,
+      0.99,
+      0.93,
+      0.84,
+      0.72,
+      0.96,
+      0.93,
+      0.9
+    ],
+    "custom_solver_numpy2": [
+      0.88,
+      1,
+      0.91,
+      0.35,
+      0.92,
+      0.42,
+      0.78,
+      1
+    ]
+  },
+  "sds": {
+    "stable_isolated_numpy1": [
+      0.03,
+      0.06,
+      0.04,
+      0.07,
+      0.08,
+      0.03,
+      0.07,
+      0.08
+    ],
+    "pinned_dev_numpy2": [
+      0.03,
+      0.06,
+      0.04,
+      0.07,
+      0.08,
+      0.03,
+      0.07,
+      0.08
+    ],
+    "custom_solver_numpy2": [
+      0.03,
+      0.06,
+      0.04,
+      0.07,
+      0.08,
+      0.03,
+      0.07,
+      0.08
+    ]
+  },
+  "scenarios": {
+    "uniform": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "stability_heavy": [
+      2.5,
+      0.7,
+      1.7,
+      1.5,
+      0.8,
+      1.2,
+      0.7,
+      0.8
+    ],
+    "stack_alignment_heavy": [
+      0.8,
+      2.8,
+      1.3,
+      1,
+      0.9,
+      1,
+      1.5,
+      1.5
+    ],
+    "maintenance_heavy": [
+      1.2,
+      1,
+      1.3,
+      2.7,
+      1.6,
+      1,
+      1.5,
+      2
+    ],
+    "reproducibility_heavy": [
+      1.3,
+      1,
+      3,
+      1.5,
+      0.8,
+      1.4,
+      1,
+      1
+    ],
+    "release_hardline": [
+      6,
+      0.4,
+      1.5,
+      1.2,
+      0.8,
+      1,
+      0.5,
+      0.6
+    ]
+  },
+  "winner_share": {
+    "uniform": {
+      "stable_isolated_numpy1": 0,
+      "pinned_dev_numpy2": 0.99668,
+      "custom_solver_numpy2": 0.00332
+    },
+    "stability_heavy": {
+      "stable_isolated_numpy1": 0.043223333333333336,
+      "pinned_dev_numpy2": 0.94851,
+      "custom_solver_numpy2": 0.008266666666666667
+    },
+    "stack_alignment_heavy": {
+      "stable_isolated_numpy1": 0,
+      "pinned_dev_numpy2": 0.9925766666666667,
+      "custom_solver_numpy2": 0.007423333333333333
+    },
+    "maintenance_heavy": {
+      "stable_isolated_numpy1": 0,
+      "pinned_dev_numpy2": 0.9991733333333334,
+      "custom_solver_numpy2": 0.0008266666666666666
+    },
+    "reproducibility_heavy": {
+      "stable_isolated_numpy1": 0.00005333333333333333,
+      "pinned_dev_numpy2": 0.99978,
+      "custom_solver_numpy2": 0.00016666666666666666
+    },
+    "release_hardline": {
+      "stable_isolated_numpy1": 0.94501,
+      "pinned_dev_numpy2": 0.0005566666666666667,
+      "custom_solver_numpy2": 0.054433333333333334
+    }
+  },
+  "claim_ceiling": "Subjective engineering sensitivity only. Not a scientific probability and not a transport result."
+}

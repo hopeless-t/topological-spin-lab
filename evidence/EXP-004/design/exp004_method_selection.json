@@ -1,0 +1,209 @@
+{
+  "schema_version": "exp004-contract-selection-v0.1",
+  "seed": 20260925,
+  "trials_per_scenario": 300000,
+  "criteria": [
+    "continuity",
+    "known_answer",
+    "minimality",
+    "transport_directness",
+    "spin_clarity",
+    "ci_feasibility",
+    "low_impl_risk",
+    "extensibility"
+  ],
+  "means": {
+    "clean_two_terminal_wilson_kwant": [
+      0.96,
+      0.93,
+      0.82,
+      0.97,
+      0.91,
+      0.74,
+      0.8,
+      0.94
+    ],
+    "clean_two_terminal_wilson_custom": [
+      0.96,
+      0.92,
+      0.72,
+      0.97,
+      0.9,
+      0.91,
+      0.53,
+      0.88
+    ],
+    "wavepacket_propagation": [
+      0.88,
+      0.76,
+      0.64,
+      0.78,
+      0.86,
+      0.88,
+      0.66,
+      0.8
+    ],
+    "multi_terminal_qpj": [
+      0.73,
+      0.58,
+      0.28,
+      0.99,
+      0.82,
+      0.5,
+      0.36,
+      0.97
+    ],
+    "kubo_response": [
+      0.7,
+      0.52,
+      0.48,
+      0.62,
+      0.38,
+      0.9,
+      0.61,
+      0.74
+    ]
+  },
+  "sds": {
+    "clean_two_terminal_wilson_kwant": [
+      0.04,
+      0.05,
+      0.06,
+      0.03,
+      0.05,
+      0.09,
+      0.08,
+      0.05
+    ],
+    "clean_two_terminal_wilson_custom": [
+      0.04,
+      0.05,
+      0.06,
+      0.03,
+      0.05,
+      0.09,
+      0.08,
+      0.05
+    ],
+    "wavepacket_propagation": [
+      0.04,
+      0.05,
+      0.06,
+      0.03,
+      0.05,
+      0.09,
+      0.08,
+      0.05
+    ],
+    "multi_terminal_qpj": [
+      0.04,
+      0.05,
+      0.06,
+      0.03,
+      0.05,
+      0.09,
+      0.08,
+      0.05
+    ],
+    "kubo_response": [
+      0.04,
+      0.05,
+      0.06,
+      0.03,
+      0.05,
+      0.09,
+      0.08,
+      0.05
+    ]
+  },
+  "scenarios": {
+    "uniform": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "physics_validation_heavy": [
+      2.2,
+      2.2,
+      1.1,
+      1.4,
+      1.2,
+      0.8,
+      1,
+      0.8
+    ],
+    "minimal_ci_heavy": [
+      1.1,
+      1.1,
+      2,
+      1,
+      0.8,
+      2,
+      2,
+      0.7
+    ],
+    "transport_future_heavy": [
+      0.9,
+      0.8,
+      0.7,
+      2.3,
+      1.1,
+      0.8,
+      0.8,
+      2
+    ],
+    "spin_clarity_heavy": [
+      1,
+      1,
+      0.8,
+      1.1,
+      2.8,
+      0.8,
+      0.9,
+      0.8
+    ]
+  },
+  "winner_share": {
+    "minimal_ci_heavy": {
+      "clean_two_terminal_wilson_custom": 0.11471,
+      "clean_two_terminal_wilson_kwant": 0.8813466666666666,
+      "kubo_response": 0,
+      "multi_terminal_qpj": 0,
+      "wavepacket_propagation": 0.003943333333333333
+    },
+    "physics_validation_heavy": {
+      "clean_two_terminal_wilson_custom": 0.12090333333333333,
+      "clean_two_terminal_wilson_kwant": 0.8790966666666666,
+      "kubo_response": 0,
+      "multi_terminal_qpj": 0,
+      "wavepacket_propagation": 0
+    },
+    "spin_clarity_heavy": {
+      "clean_two_terminal_wilson_custom": 0.15838666666666668,
+      "clean_two_terminal_wilson_kwant": 0.8412533333333333,
+      "kubo_response": 0,
+      "multi_terminal_qpj": 0,
+      "wavepacket_propagation": 0.00036
+    },
+    "transport_future_heavy": {
+      "clean_two_terminal_wilson_custom": 0.11797,
+      "clean_two_terminal_wilson_kwant": 0.88203,
+      "kubo_response": 0,
+      "multi_terminal_qpj": 0,
+      "wavepacket_propagation": 0
+    },
+    "uniform": {
+      "clean_two_terminal_wilson_custom": 0.11128666666666667,
+      "clean_two_terminal_wilson_kwant": 0.88861,
+      "kubo_response": 0,
+      "multi_terminal_qpj": 0,
+      "wavepacket_propagation": 0.00010333333333333333
+    }
+  },
+  "claim_ceiling": "Subjective engineering design sensitivity only; not a physical probability or scientific result."
+}

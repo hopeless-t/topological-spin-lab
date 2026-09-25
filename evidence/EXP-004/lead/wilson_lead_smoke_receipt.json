@@ -1,0 +1,73 @@
+{
+  "schema_version": "exp004-wilson-lead-smoke-receipt-v0.1",
+  "date": "2026-09-25",
+  "authority": "RESEARCH_ONLY",
+  "status": "PASS",
+  "source_commit": "606db5c1b3d9d575868aba4d2b08ffea109b5299",
+  "actions_run_id": 36118618663,
+  "runtime": {
+    "python": "3.12.14",
+    "kwant": "1.5.1.dev68+gef12fa0d7",
+    "kwant_upstream_commit": "ef12fa0d7",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "geometry": {
+    "alpha_eV_A": 1,
+    "mass_magnitude_eV": 0.02,
+    "wall_width_A": 50,
+    "xi_A": 50,
+    "lattice_spacing_A": 10,
+    "nx": 80,
+    "circumference_A": 800,
+    "wall_separation_A": 400,
+    "wall_separation_xi": 8,
+    "wilson_r": 0.5,
+    "k_phase_smoke": 0.05
+  },
+  "observed": {
+    "canonical_wall_plus_k": {
+      "energy_eV": 0.00499792306088079,
+      "dE_dkphase_eV": 0.09987485688077444,
+      "sigma_x": -0.9999987727276151,
+      "sigma_y": 0,
+      "sigma_z": -0.000018641710760218937,
+      "wall0_weight": 0.9692577462762244,
+      "wall1_weight": 0.000021536117555204166,
+      "density_peak_x_A": 0
+    },
+    "opposite_wall_plus_k": {
+      "energy_eV": -0.004997923060880827,
+      "dE_dkphase_eV": -0.09987485688077447,
+      "sigma_x": 0.9999987727276152,
+      "sigma_y": 0,
+      "sigma_z": 0.000018641710760758653,
+      "wall0_weight": 0.000021536117555204237,
+      "wall1_weight": 0.9692577462762245,
+      "density_peak_x_A": 400
+    },
+    "expected_abs_energy_eV": 0.004997916927067833,
+    "expected_abs_dE_dkphase_eV": 0.09987502603949663,
+    "wilson_min_abs_energy_at_pi_eV": 0.08118689392021432,
+    "naive_r0_min_abs_energy_at_pi_eV": 2.7397338511237496e-19,
+    "bands_dense_oracle_residual_plus_eV": 2.949029909160572e-16,
+    "bands_dense_oracle_residual_pi_eV": 6.38378239159465e-16
+  },
+  "checks": {
+    "low_energy_mode_count": true,
+    "wall_localization": true,
+    "exp003_spin_recovery": true,
+    "exp003_dispersion_sign_recovery": true,
+    "low_k_energy_recovery": true,
+    "low_k_slope_recovery": true,
+    "wilson_y_doubler_suppression": true,
+    "naive_r0_doubler_red_team": true,
+    "kwant_bloch_dense_oracle": true
+  },
+  "artifact": {
+    "id": 10855718954,
+    "zip_sha256": "e5b6d80d544c60d1a66b0c3d3054955c5cf8625f2c6273ad413a8786ba4166d3",
+    "size_bytes": 1207
+  },
+  "claim_ceiling": "The selected periodic double-wall Wilson lead reproduces the targeted EXP-003 low-k mode properties and suppresses the y-direction naive-lattice doubler for this single discretization/geometry point. Convergence is not established; finite-device scattering and EXP-004 scientific PASS remain unauthorized."
+}

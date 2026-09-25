@@ -1,0 +1,53 @@
+{
+  "schema_version": "exp004-kwant-backend-qualification-receipt-v0.1",
+  "date": "2026-09-25",
+  "authority": "RESEARCH_ONLY",
+  "status": "PRIMITIVE_BACKEND_QUALIFIED",
+  "action_run": 36117118891,
+  "source_commit": "ef84d9543c4d3dcb0a07a029eb217bcde99a8548",
+  "lanes": {
+    "stable_numpy1": {
+      "status": "PASS",
+      "python": "3.12.14",
+      "kwant": "1.5.0",
+      "numpy": "1.26.4",
+      "scipy": "1.14.1",
+      "artifact_id": 10855224498,
+      "artifact_zip_sha256": "20e1efb93ba469eb2fc3724b55f7ec40a473647c4e8619f755f0e6e6e7cf96e3",
+      "observed": {
+        "left_modes": 1,
+        "right_modes": 1,
+        "T_LR": 1,
+        "R_LL": 0,
+        "unitarity_residual_2norm": 0,
+        "sigma_z": 1
+      }
+    },
+    "dev_numpy2": {
+      "status": "PASS",
+      "upstream_commit": "ef12fa0d7",
+      "kwant": "1.5.1.dev68+gef12fa0d7",
+      "python": "3.12.14",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "built_wheel_sha256": "be250a24a71599f82415e066b94dae6a4f0678a191f7faf422586b16930630c2",
+      "artifact_id": 10855780882,
+      "artifact_zip_sha256": "a0eda798f4ecb6dd78c16adb1edf2005575219fa1c2cdfaaaca58fc6c2504d57",
+      "observed": {
+        "left_modes": 1,
+        "right_modes": 1,
+        "T_LR": 1,
+        "R_LL": 0,
+        "unitarity_residual_2norm": 0,
+        "sigma_z": 1
+      }
+    }
+  },
+  "council_disposition": {
+    "next_research_spike": "PINNED_DEV_NUMPY2",
+    "stable_lane_role": "FALLBACK_AND_INDEPENDENT_CROSSCHECK",
+    "pyproject_dependency_change": "HOLD",
+    "reason": "Pinned development snapshot aligns with the repository NumPy-2 stack and passed the same deterministic primitives; stable 1.5.0 remains a released fallback. A release-hardline preference reverses the engineering Monte Carlo, so unreleased Kwant must not yet become an unqualified canonical dependency."
+  },
+  "claim_ceiling": "Kwant primitive transport capability is qualified on the specified public Actions environments only. Wilson-domain-wall correctness, convergence, and EXP-004 scientific PASS remain untested."
+}
