@@ -104,8 +104,9 @@ def main() -> None:
         Path(args.out).write_text(text, encoding="utf-8")
 
     if args.check:
-        expected = Path(args.check).read_text(encoding="utf-8")
-        if expected != text:
+        expected = json.loads(Path(args.check).read_text(encoding="utf-8"))
+        observed = run()
+        if expected != observed:
             raise SystemExit("EXP-004 decision-support evidence mismatch")
 
     if not args.out and not args.check:
