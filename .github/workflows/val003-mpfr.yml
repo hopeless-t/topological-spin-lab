@@ -1,7 +1,12 @@
 name: val003-mpfr
 
 on:
-  pull_request:
+  # This is intentionally push-scoped.  pull_request.paths evaluates the full
+  # cumulative PR diff, so a long-lived research PR would re-run this expensive
+  # MPFR lane on every unrelated checkpoint after VAL-003 first changed.
+  push:
+    branches:
+      - research/exp004-reentry-2026-09-25
     paths:
       - "src/topological_spin_lab/verification/**"
       - "research/val003_mpfr_backend_qualification.py"
@@ -9,7 +14,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: val003-mpfr-${{ github.event.pull_request.number || github.ref }}
+  group: val003-mpfr-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
