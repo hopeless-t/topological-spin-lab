@@ -1,0 +1,49 @@
+name: exp004-c14-transport-surface
+
+on:
+  push:
+    branches:
+      - research/exp004-reentry-2026-09-25
+    paths:
+      - research/exp004_c14_transport_acceptance_surface.py
+      - .github/workflows/exp004-c14-transport-surface.yml
+  workflow_dispatch:
+
+concurrency:
+  group: exp004-c14-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  transport-surface:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned NumPy-2 Kwant research lane
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential gfortran libopenblas-dev liblapack-dev \
+            pkg-config ninja-build meson cmake
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install "numpy>=2,<3" "scipy>=1.14,<2" \
+            "meson-python" "ninja" "cython" "packaging" "setuptools-scm"
+          python -m pip install --no-build-isolation \
+            "git+https://gitlab.kwant-project.org/kwant/kwant.git@ef12fa0d7"
+
+      - name: Run EXP-004 C14 transport acceptance surface
+        run: |
+          python research/exp004_c14_transport_acceptance_surface.py \
+            --out runs/EXP-004-C14/transport-acceptance-surface.json
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exp004-c14-transport-surface
+          path: runs/EXP-004-C14/*.json
+          if-no-files-found: ignore
