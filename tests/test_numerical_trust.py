@@ -27,6 +27,23 @@ def test_two_product_recovers_binary64_product_error():
         assert recovered == exact
 
 
+def test_two_product_fails_closed_for_underflowed_product():
+    with pytest.raises(ValueError, match="subnormal/underflowed"):
+        two_product(2.0**-800, 2.0**-300)
+
+
+def test_two_product_fails_closed_for_subnormal_product():
+    with pytest.raises(ValueError, match="subnormal/underflowed"):
+        two_product(2.0**-1022, 0.5)
+
+
+def test_two_product_fails_closed_for_splitter_overflow():
+    # The ordinary product is exactly one, but Dekker's splitter multiplication
+    # overflows for the large operand. The EFT reference lane must escalate.
+    with pytest.raises(ValueError, match="splitter overflow"):
+        two_product(2.0**1000, 2.0**-1000)
+
+
 def test_eft_dot_matches_exact_fraction_oracle_on_cancellation():
     x = np.asarray([2.0**20, 2.0**20, 1.0, 1.0], dtype=float)
     y = np.asarray([1.0, -1.0, 1.0, -np.nextafter(1.0, np.inf)], dtype=float)
