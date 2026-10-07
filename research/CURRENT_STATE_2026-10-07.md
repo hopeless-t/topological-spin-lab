@@ -1,19 +1,17 @@
 # Research current state — 2026-10-07
 
 **STATUS:** ACTIVE RESTART / RESEARCH ONLY  
-**ACTIVE PR:** #12 `research: restore physics research baton for EXP-004`  
-**ACTIVE BRANCH OBSERVED AT RESTART:** `research/exp004-reentry-2026-09-25`  
-**OBSERVED HEAD BEFORE THIS RESTART:** `e076dd709991a7df4b0525e86c133090fdb03da7`
+**ACTIVE PR:** #12 `research: restart EXP-004 through convergence-gate review`  
+**ACTIVE BRANCH:** `research/exp004-reentry-2026-09-25`
 
 This checkpoint restarts the physics program after attention shifted to other implementations.
 It preserves the existing scientific boundary and adds a literature delta, a cheaper
-independent oracle, and a compact convergence pilot.
+independent oracle, a compact convergence pilot, threshold sensitivity, and an explicit
+mathematical-model adequacy lane.
 
 ## What was already complete
 
-The recovered branch had already progressed beyond the original EXP-004 contract draft.
-
-Verified state:
+Verified state at restart:
 
 - EXP-001 — implemented + frozen;
 - EXP-002 — implemented + frozen;
@@ -56,9 +54,9 @@ Materially relevant additions include:
 - 2025 NdBi laser-SARPES spin-splitting work;
 - 2024 magnetic-TI nanoribbon domain-wall transport;
 - 2025 magnetic-TI domain-wall snake-state transport;
+- 2025 AFTI domain-wall topology with explicit crystalline / mirror-symmetry dependence;
 - 2025 direct / zero-field chiral edge transport in MnBi2Te4;
-- the existing September 2026 NdBi spin-polarized Dirac-gap result reinterpreted as a
-  model-adequacy constraint for later material-informed work.
+- the September 2026 NdBi spin-polarized Dirac-gap result as a model-adequacy constraint for later material-informed work.
 
 The refresh does **not** change the frozen generic EXP-001/002/003 parameters.
 
@@ -67,7 +65,7 @@ The refresh does **not** change the frozen generic EXP-001/002/003 parameters.
 A NumPy-only dense Bloch Hamiltonian was constructed independently from Kwant using the same
 C09 Wilson lead Hamiltonian.
 
-Artifact:
+Artifacts:
 
 - `research/exp004_convergence_pilot.py`
 - `evidence/EXP-004/convergence/exp004_convergence_pilot_2026-10-07.json`
@@ -99,9 +97,6 @@ separation       hybridization gap
 10 xi            1.54395e-6 eV
 ```
 
-This exposes a clear wall-separation regime rather than treating `8 xi` as an arbitrary
-drawing choice.
-
 ### Lattice-refinement sweep at `8 xi`
 
 ```text
@@ -116,72 +111,6 @@ a           velocity relative error      hybridization gap
 The C09 point lies on the convergent side of both the lattice-resolution and wall-separation
 knees for the tested observables.
 
-## Candidate convergence gate
-
-The exploratory pilot proposes, but does not yet canonically freeze:
-
-```text
-canonical a                         10 Å
-minimum wall separation             8 xi
-hybridization gap                  <= 1e-5 eV
-continuum energy relative error    <= 1e-3
-group-velocity relative error      <= 2e-3
-|<sigma_x>|                        >= 0.999
-wall weight                        >= 0.95
-Wilson pi gap                      >= 0.05 eV
-r=0 Red Team pi gap                <= 1e-10 eV
-```
-
-The canonical C09 point passes all of these candidate gates in the independent pilot.
-
-## Scientific boundary after restart
-
-```text
-EXP-004 contract                    DRAFT
-Kwant primitive qualification      PASS
-Wilson lead-mode bridge            PASS
-independent dense reproduction     PASS (research-only)
-convergence pilot                  EXPLORATORY PASS
-threshold sensitivity review       COMPLETE
-convergence criteria               CANDIDATE / NOT FROZEN
-economy candidate                  a=10 Å, 8 xi
-margin candidate                   a=8 Å, 8 xi
-finite scattering device           NOT AUTHORIZED
-EXP-004 scientific PASS            NO
-```
-
-No transport implementation is promoted by this checkpoint.
-
-## New research axes discovered
-
-The source refresh identifies four downstream lanes:
-
-1. **geometry/path topology** — straight, slanted, curved, transverse walls;
-2. **mass amplitude vs sign** — true sign-changing wall versus same-sign magnetic-gap
-   suppression as a null/control geometry;
-3. **mixed-channel leakage** — preserve channel identity when trivial/bulk-like transport
-   coexists;
-4. **NdBi model adequacy** — determine the minimum model required before any
-   material-informed claim.
-
-These remain downstream of the clean EXP-004 calibration.
-
-## Updated high-speed loop
-
-See `research/HIGH_SPEED_RESEARCH_LOOP.md`.
-
-The key efficiency change is:
-
-```text
-cheap independent oracle
--> bounded regime sweep
--> Red Team
--> candidate gate
--> reproducible authority-crossing run
-```
-
-rather than sending every exploratory question directly to remote CI.
-
 ## EXP004-C11 — threshold sensitivity review
 
 C11 applied strict, nominal, and relaxed threshold families to the C10 matrix.
@@ -195,7 +124,7 @@ Result:
 
 This means the historical C09 point is useful but not threshold-insensitive.
 
-C11 also separates the gate into three classes:
+C11 separates the gate into three classes:
 
 ```text
 CONVERGENCE
@@ -219,9 +148,142 @@ Artifacts:
 - `evidence/EXP-004/convergence/exp004_gate_sensitivity_2026-10-07.json`
 - `evidence/EXP-004/convergence/EXP004-C11_GATE_SENSITIVITY_2026-10-07.md`
 
-## Next bounded bounce
+## Mathematical-model adequacy audit
 
-**EXP004-C12 — economy-versus-margin cost qualification**
+See:
+
+- `docs/research/MODEL_ADEQUACY_AUDIT_2026-10-07.md`
+
+### Diagnosis
+
+The existing model
+
+```text
+H = alpha (kx sigma_y - ky sigma_x) + m(r) sigma_z
+```
+
+is still a valid and useful **generic two-component known-answer model**. It should remain
+frozen as an analytic / numerical reference.
+
+It is not, however, a sufficient material model of modern NdBi evidence.
+
+The problem is not merely discretization error. The two-component state space cannot
+independently represent:
+
+- NdBi orbital content;
+- magnetic sublattice / q-order;
+- the observed pair of spin-split surface bands;
+- surface inversion-symmetry breaking distinct from a magnetic scalar mass;
+- AFM band folding / hybridization;
+- 1q / 2q / 3q-dependent Dirac / Weyl structure.
+
+Taking `a -> 0` in the Wilson model cannot recover missing state-space dimensions.
+
+### Model ladder
+
+The restart therefore adopts a candidate model hierarchy:
+
+```text
+L0  frozen generic 2x2 Dirac + scalar mass known answer
+L1  symmetry-derived low-order surface k.p model
+L2  minimal multi-sector spin x orbital x AFM/folding reduced model
+L3  DFT+U+SOC / Wannier NdBi material-reference tight binding
+```
+
+The intended flow is:
+
+```text
+L3 material oracle
+    -> downfold / fit
+L2 smallest material-adequate reduced model
+    -> low-cost transport / exploration
+L1 symmetry tests
+    -> term necessity / failure localization
+L0 frozen known answers
+    -> analytic and numerical falsification
+```
+
+No L1/L2 coupling matrix is frozen yet. Terms must be symmetry-derived or downfolded, not
+invented by analogy.
+
+### Proposed VAL-002
+
+Before any material-specific NdBi transport claim, add a **model adequacy** validation lane.
+
+Candidate target observables:
+
+- number of surface branches;
+- dispersion near the chosen surface TRIM;
+- magnetic Dirac gap;
+- full vector spin texture versus momentum;
+- magnetic-order reversal response;
+- surface / bulk spectral weight;
+- surface inversion-breaking sensitivity;
+- q-order dependence where available.
+
+Use the smallest model that passes predefined observable gates. Failure of a lower-order
+model is evidence, not a reason to silently add complexity.
+
+## Scientific boundary after restart
+
+```text
+EXP-004 contract                    DRAFT
+Kwant primitive qualification      PASS
+Wilson lead-mode bridge            PASS
+independent dense reproduction     PASS (research-only)
+convergence pilot                  EXPLORATORY PASS
+threshold sensitivity review       COMPLETE
+convergence criteria               CANDIDATE / NOT FROZEN
+economy candidate                  a=10 Å, 8 xi
+margin candidate                   a=8 Å, 8 xi
+L0 generic model                   VALID / FROZEN REFERENCE
+NdBi material adequacy             NOT ESTABLISHED
+VAL-002 model-adequacy lane        PROPOSED
+finite scattering device           NOT AUTHORIZED
+EXP-004 scientific PASS            NO
+```
+
+## New research axes discovered
+
+The source refresh identifies downstream lanes:
+
+1. **geometry/path topology** — straight, slanted, curved, transverse walls;
+2. **mass amplitude vs sign** — true sign-changing wall versus same-sign magnetic-gap suppression as a null/control geometry;
+3. **mixed-channel leakage** — preserve channel identity when trivial/bulk-like transport coexists;
+4. **NdBi model adequacy** — determine the minimum model required before any material-informed claim;
+5. **AFM order-parameter topology** — distinguish scalar mass walls from vector exchange textures, q-domain boundaries, and symmetry-protected AFTI defects.
+
+The last two are now elevated because model inadequacy cannot be repaired by finer numerical convergence.
+
+## Updated high-speed loop
+
+See `research/HIGH_SPEED_RESEARCH_LOOP.md`.
+
+The key efficiency change is:
+
+```text
+cheap independent oracle
+-> bounded regime sweep
+-> Red Team
+-> candidate gate
+-> reproducible authority-crossing run
+```
+
+rather than sending every exploratory question directly to remote CI.
+
+The model lane adds:
+
+```text
+observable target
+-> smallest candidate state space
+-> symmetry/downfold derivation
+-> failure against material oracle
+-> complexity only when earned
+```
+
+## Next bounded bounces
+
+### EXP004-C12 — economy-versus-margin cost qualification
 
 Compare only:
 
@@ -236,13 +298,26 @@ Required:
 2. measure deterministic runtime/resource cost with the same physical geometry;
 3. keep the gate classes separated;
 4. freeze the cheapest candidate that preserves the chosen accuracy margin;
-5. only then make an explicit transport-implementation authorization decision.
+5. only then make an explicit generic finite-transport authorization decision.
 
-Do not begin curved-wall, disorder, leakage, or NdBi-specific transport work before this
-gate is resolved.
+### VAL-002-C01 — model-target contract
+
+In parallel, define a material-adequacy contract from the 2025–2026 NdBi observations and
+material-reference calculations. Do not yet fit a speculative Hamiltonian.
+
+First freeze:
+
+- selected surface / TRIM;
+- magnetic-order assumption;
+- target branch count;
+- energy-window and gap observables;
+- spin-vector observables;
+- surface spectral-weight observables;
+- claim ceiling.
 
 ## Claim ceiling
 
-This restart establishes a stronger research process and a candidate convergence regime.
-It does not establish finite-device transmission, quantized conductance, disorder
-robustness, or a material-specific NdBi transport prediction.
+This restart establishes a stronger research process, a candidate convergence regime, and a
+formal diagnosis of the reduced model boundary. It does not establish finite-device
+transmission, quantized conductance, disorder robustness, or a material-specific NdBi
+transport prediction.
