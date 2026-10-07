@@ -69,3 +69,8 @@ jobs:
         run: |
           python research/val003_numerical_trust_pilot.py \
             --out runs/VAL-003-ci/numerical_trust_pilot.json
+
+      - name: Run EXP-004 C12 cost qualification
+        run: |
+          python research/exp004_c12_cost_qualification.py \
+            --out runs/EXP-004-C12-ci/cost_qualification.json
