@@ -1,0 +1,75 @@
+{
+  "authority": "Research-only numerical-trust pilot. The CRT path is an Ozaki-Scheme-II-inspired micro-oracle, not a full high-performance Ozaki Scheme II implementation. The EFT path uses Dekker TwoProduct + math.fsum and is not a native NearSum/ExBLAS/OzBLAS implementation.",
+  "checks": {
+    "complex_eft_matches_exact_all_cases": true,
+    "crt_capacity_red_team": true,
+    "crt_corruption_red_team": true,
+    "crt_exact_all_cases": true,
+    "domain_wall_eft_residual_small": true,
+    "domain_wall_global_phase_invariant": true,
+    "domain_wall_spin_real": true,
+    "real_eft_matches_exact_all_cases": true,
+    "real_eft_permutation_invariant": true,
+    "real_eft_power_of_two_scale_invariant": true
+  },
+  "claim_ceiling": "Demonstrates bounded exact/accurate verification mechanisms only. It does not certify all floating-point operations, the eigensolver, EXP-004 transport, or any material-specific NdBi prediction.",
+  "complex_dot_kittens": {
+    "cases": 256,
+    "correctly_rounded_matches": {
+      "eft": 256,
+      "numpy": 63
+    },
+    "length": 32,
+    "max_numpy_abs_error": 0.0002441704255036203
+  },
+  "crt_micro_oracle": {
+    "cases": 256,
+    "crt_dynamic_range": 1920875,
+    "exact_matches": 256,
+    "independent_check_modulus": 113,
+    "maximum_tested_absolute_product_bound": 60000,
+    "primary_moduli": [127, 125, 121],
+    "red_team": {
+      "capacity_overflow_rejected": true,
+      "corrupted_reconstruction_detected": true
+    }
+  },
+  "domain_wall_postcheck": {
+    "eft_residual_norm": 9.950098769364557e-17,
+    "energy_eV": 0.004997923060880724,
+    "matrix_dimension": 160,
+    "metamorphic": {
+      "global_phase_trials": 32,
+      "sigma_x_max_abs_deviation": 1.1102230246251565e-16
+    },
+    "ordinary_residual_norm": 9.99408896597437e-17,
+    "ordinary_vs_eft_residual_vector_max_abs_delta": 1.6439679271400473e-18,
+    "sigma_x_eft_imag": 0.0,
+    "sigma_x_eft_real": -0.9999987727276152
+  },
+  "next_gate": "VAL003-C02: add an independent high-precision/native backend lane (MPFR/ExBLAS/OzBLAS candidate), widen exponent-range Red Teams, and cross-check the C12 economy/margin candidates before any authority promotion.",
+  "real_dot_kittens": {
+    "cases": 1024,
+    "correctly_rounded_matches": {
+      "eft": 1024,
+      "fsum_products": 0,
+      "numpy": 0
+    },
+    "length": 64,
+    "max_ulp_error": {
+      "eft": 0.0,
+      "fsum_products": 2248274212687618.0,
+      "numpy": 1.1482283462451639e+18
+    },
+    "metamorphic": {
+      "permutation_failures_eft": 0,
+      "power_of_two_rescale_failures_eft": 0
+    }
+  },
+  "runtime": {
+    "numpy": "2.3.5",
+    "python": "3.13.5"
+  },
+  "schema_version": "val003-numerical-trust-pilot-v0.1",
+  "status": "EXPLORATORY_PASS"
+}
