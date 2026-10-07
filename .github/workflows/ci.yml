@@ -1,8 +1,26 @@
 name: ci
 
 on:
+  # Use push/current-diff filtering rather than pull_request filtering.  On a
+  # long-lived research PR, pull_request.paths evaluates the cumulative PR diff
+  # and would keep re-running the whole suite after any qualifying file changed
+  # once.  Push paths react only to the current checkpoint.
   push:
-  pull_request:
+    branches:
+      - main
+      - "research/**"
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "specs/**"
+      - "research/**/*.py"
+      - "pyproject.toml"
+      - ".github/workflows/ci.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -55,3 +73,13 @@ jobs:
           python research/val001_threshold_sensitivity.py \
             runs/VAL-001-ci/summary.json \
             --out runs/VAL-001-ci/threshold_sensitivity.json
+
+      - name: Run VAL-003 numerical trust pilot
+        run: |
+          python research/val003_numerical_trust_pilot.py \
+            --out runs/VAL-003-ci/numerical_trust_pilot.json
+
+      - name: Run EXP-004 C12 cost qualification
+        run: |
+          python research/exp004_c12_cost_qualification.py \
+            --out runs/EXP-004-C12-ci/cost_qualification.json

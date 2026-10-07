@@ -316,3 +316,35 @@ upper-band helicity = +1
 ~~~
 
 A different convention in a cited paper is not treated as a disagreement unless the physical observables differ.
+
+
+---
+
+## Quantum-transport and spin-observable lineage
+
+### [P-LANDAUER-1981] Langreth and Abrahams
+
+David C. Langreth and Elihu Abrahams.
+"Derivation of the Landauer conductance formula."
+Physical Review B 24, 2978 (1981).
+DOI: https://doi.org/10.1103/PhysRevB.24.2978
+
+Role: primary transport-formalism lineage for relating transmission of propagating channels to two-terminal conductance. EXP-004 may use Landauer transmission only after the lead/scattering geometry and channel count are explicit.
+
+### [P-KWANT-2014] Groth et al.
+
+Christoph W. Groth, Michael Wimmer, Anton R. Akhmerov, and Xavier Waintal.
+"Kwant: a software package for quantum transport."
+New Journal of Physics 16, 063065 (2014).
+DOI: https://doi.org/10.1088/1367-2630/16/6/063065
+
+Role: primary software/method reference for tight-binding scattering matrices, propagating modes, conductance, wave functions, and related quantum-transport observables. Kwant is an EXP-004 implementation candidate, not physics authority.
+
+### [P-SPINCURRENT-2006] Shi et al.
+
+Junren Shi, Ping Zhang, Di Xiao, and Qian Niu.
+"Proper Definition of Spin Current in Spin-Orbit Coupled Systems."
+Physical Review Letters 96, 076604 (2006).
+DOI: https://doi.org/10.1103/PhysRevLett.96.076604
+
+Role: cautionary primary source for spin-current language in systems with spin-orbit coupling. EXP-004 therefore reports flux-carrying mode spin expectation/polarization as a direct observable and does not call it a conserved spin current without a separate definition/continuity contract.

@@ -1,0 +1,67 @@
+{
+  "schema_version": "exp004-c11-gate-sensitivity-v0.1",
+  "date": "2026-10-07",
+  "status": "REVIEW_COMPLETE",
+  "authority": "research-only threshold sensitivity; no convergence contract frozen",
+  "threshold_families": {
+    "strict": {
+      "hybridization_gap_max_eV": 7.5e-06,
+      "continuum_energy_relative_error_max": 0.0005,
+      "group_velocity_relative_error_max": 0.001,
+      "abs_sigma_x_min": 0.9999,
+      "wall_weight_min": 0.95,
+      "wilson_pi_gap_min_eV": 0.075,
+      "naive_pi_gap_max_eV": 1e-10,
+      "passing_points": [[8.0, 8], [8.0, 10], [5.0, 8], [5.0, 10]]
+    },
+    "nominal": {
+      "hybridization_gap_max_eV": 1e-05,
+      "continuum_energy_relative_error_max": 0.001,
+      "group_velocity_relative_error_max": 0.002,
+      "abs_sigma_x_min": 0.999,
+      "wall_weight_min": 0.95,
+      "wilson_pi_gap_min_eV": 0.05,
+      "naive_pi_gap_max_eV": 1e-10,
+      "passing_points": [[12.5, 10], [10.0, 8], [10.0, 10], [8.0, 8], [8.0, 10], [5.0, 8], [5.0, 10]]
+    },
+    "relaxed": {
+      "hybridization_gap_max_eV": 2e-05,
+      "continuum_energy_relative_error_max": 0.002,
+      "group_velocity_relative_error_max": 0.005,
+      "abs_sigma_x_min": 0.995,
+      "wall_weight_min": 0.9,
+      "wilson_pi_gap_min_eV": 0.03,
+      "naive_pi_gap_max_eV": 1e-10,
+      "passing_points": [[20.0, 10], [12.5, 8], [12.5, 10], [10.0, 8], [10.0, 10], [8.0, 8], [8.0, 10], [5.0, 8], [5.0, 10]]
+    }
+  },
+  "canonical_c09_point": {
+    "lattice_spacing_A": 10.0,
+    "wall_separation_xi": 8,
+    "strict_pass": false,
+    "nominal_pass": true,
+    "relaxed_pass": true
+  },
+  "margin_candidate": {
+    "lattice_spacing_A": 8.0,
+    "wall_separation_xi": 8,
+    "strict_pass": true,
+    "nominal_pass": true,
+    "relaxed_pass": true,
+    "a_over_xi": 0.16
+  },
+  "economy_candidate": {
+    "lattice_spacing_A": 10.0,
+    "wall_separation_xi": 8,
+    "a_over_xi": 0.2
+  },
+  "review_findings": [
+    "The C09 point is adequate under the nominal gate but is not insensitive to reasonable tightening.",
+    "The 8 A / 8 xi point retains strict-gate margin while remaining close to the existing C09 geometry.",
+    "wall_weight is better treated as a channel-identity gate than as a monotonic convergence observable.",
+    "Wilson and r=0 pi-gap checks are regulator/Red-Team gates rather than continuum-convergence observables.",
+    "The final freeze should separate convergence gates from identity and regulator gates."
+  ],
+  "next_decision": "compare reproducible runtime/cost of 10 A versus 8 A and freeze the smallest geometry that preserves the chosen accuracy margin before finite scattering authorization",
+  "claim_ceiling": "threshold sensitivity only; no finite-device transport or material-specific claim"
+}

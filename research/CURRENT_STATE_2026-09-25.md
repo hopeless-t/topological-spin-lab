@@ -1,0 +1,274 @@
+# Research Current State — 2026-09-25
+
+**STATUS:** RECOVERY CHECKPOINT / RESEARCH ONLY  
+**MAINLINE AUTHORITY:** NONE  
+**BASE MAIN:** `e7c0d437b5d96040efd874c4dbe6eb4c0115030d`  
+**ACTIVE BRANCH:** `research/exp004-reentry-2026-09-25`
+
+## Why this checkpoint exists
+
+A 2026-09-25 research session was accidentally continued in `hopeless-t/DDS_Vault` under a Decision Archaeology research branch instead of this public physics repository.
+
+That work is **not** imported here because it belongs to a different research domain and would contaminate the scientific lineage of `topological-spin-lab`.
+
+This checkpoint restores the baton to the correct repository and records the exact restart point.
+
+## Verified repository state
+
+Main currently ends at:
+
+```text
+e7c0d437b5d96040efd874c4dbe6eb4c0115030d
+val001: implement regulator cross-check
+```
+
+The reviewed state at that commit is:
+
+- EXP-001 — implemented and frozen reference;
+- EXP-002 — implemented and frozen reference;
+- EXP-003 — implemented and frozen continuum domain-wall reference;
+- VAL-001 — implemented and reviewed;
+- Stacey/tangent — selected as stationary spectral validator for the frozen benchmark;
+- Wilson `r=0.5` — selected as conventional-lattice transport **candidate**;
+- transport authorization — **false**;
+- EXP-004 — deferred pending a separate Scientific Contract.
+
+No 2026-09-25 physics result predating this checkpoint is claimed.
+
+## Research boundary
+
+Do not copy Decision Archaeology / Jev-Cua artifacts from `DDS_Vault` into this repository merely to preserve session continuity.
+
+Only reusable **process discipline** may be borrowed when useful, such as:
+
+- short multi-bounce checkpoints;
+- source/claim provenance;
+- explicit claim ceilings;
+- fail-closed research contracts;
+- externalized Monte Carlo / numerical computation;
+- GitHub-based durable evidence.
+
+Those process patterns are not physics evidence.
+
+## Execution substrate
+
+This repository is public and already contains:
+
+```text
+.github/workflows/ci.yml
+on:
+  push:
+  pull_request:
+```
+
+The CI uses GitHub-hosted `ubuntu-latest` and currently runs:
+
+- pytest;
+- EXP-001;
+- EXP-002;
+- EXP-003;
+- VAL-001;
+- VAL-001 threshold-sensitivity analysis.
+
+For this repository, GitHub Actions should be treated as the preferred remote compute/verification substrate when the workload fits GitHub-hosted-runner limits.
+
+## Multi-bounce operating rule
+
+Each meaningful bounce should be short:
+
+```text
+fresh read / exploration
+  -> atomic decomposition
+  -> pseudo-Council until convergence
+  -> external calculation / Monte Carlo when useful
+  -> durable Git checkpoint
+  -> user progress report
+  -> stop / refresh context
+```
+
+Do not continue multiple long research legs without a visible checkpoint/report.
+
+## Next eligible research question
+
+The repository itself points to EXP-004 as the next physical lane, but VAL-001 explicitly keeps transport unauthorized.
+
+Therefore the next eligible bounce is **not transport implementation**.
+
+It is:
+
+> Explore and freeze the Scientific Contract for EXP-004 spin-resolved transport, including the minimum physical question, observables, known-answer checks, regulator usage, failure modes, literature lineage, and authorization boundary.
+
+Before implementation:
+
+1. refresh relevant transport / Dirac / Wilson / spin-resolved literature;
+2. decompose the proposed experiment into physics assumptions, numerical assumptions, observables, and falsification checks;
+3. run a pseudo-Council until the contract converges;
+4. use Monte Carlo / sensitivity only for engineering-design choices, never as physical evidence;
+5. commit the contract as a separate short bounce;
+6. only then decide whether EXP-004 implementation is authorized.
+
+## Recovery invariant
+
+```text
+correct repository
++ pinned source state
++ explicit scientific boundary
++ visible Git checkpoint
+= valid baton
+```
+
+This file is a recovery/status artifact, not a new scientific result.
+
+
+## Bounce EXP004-C01 — contract exploration checkpoint
+
+Completed:
+- refreshed transport/Wilson/chiral-channel/spin-observable literature;
+- decomposed the minimum EXP-004 problem;
+- pseudo-Council converged on a clean two-terminal Wilson domain-wall calibration;
+- selected a periodic transverse double-wall geometry to make the compensating channel explicit;
+- selected flux-mode spin expectation rather than an unqualified conserved-spin-current claim;
+- ran 300,000-draw-per-scenario engineering Monte Carlo over five experiment shapes;
+- selected Kwant as the **first backend qualification target**, not as physics authority.
+
+Durable artifacts:
+- `docs/EXP-004.md`
+- `research/EXP004_LITERATURE_REFRESH_2026-09-25.md`
+- `research/exp004_method_selection.py`
+- `evidence/EXP-004/design/exp004_method_selection.json`
+- `.github/workflows/exp004-contract-research.yml`
+
+Current gate:
+
+```text
+EXP-004 Scientific Contract      DRAFT
+transport implementation         NOT AUTHORIZED
+Kwant backend                    NOT QUALIFIED
+acceptance tolerances            NOT FROZEN
+```
+
+Next bounce: public-GitHub-Actions backend qualification and minimal
+lead/scattering smoke test. No EXP-004 scientific PASS claim yet.
+
+
+## Bounce EXP004-C03 — backend qualification launched
+
+Fresh exploration confirmed that the current PyPI stable Kwant target is
+`1.5.0`. Because the qualification question is deterministic, this bounce
+uses a known-answer scattering test rather than Monte Carlo.
+
+Committed:
+- `research/exp004_kwant_backend_smoke.py`
+- `.github/workflows/exp004-kwant-backend.yml`
+- `research/EXP004_KWANT_BACKEND_QUALIFICATION_2026-09-25.md`
+
+The workflow tests public GitHub Actions + Python 3.12 + Kwant 1.5.0 using a
+single-propagating-spin-channel chain.
+
+Current gate remains:
+
+```text
+Kwant backend QUALIFICATION RUN PENDING
+EXP-004 transport implementation NOT AUTHORIZED
+```
+
+
+## Bounce EXP004-C04 — Kwant build correction
+
+First qualification run `36116441805` reached public Ubuntu 24.04 Actions but
+failed before the smoke calculation because pip build isolation could not see
+the already installed NumPy headers.
+
+Correction follows Kwant's current source-build guidance:
+- install NumPy/SciPy/tinyarray first;
+- install Kwant 1.5.0 with `--no-build-isolation`.
+
+Scientific contract and smoke known answer are unchanged.
+
+Gate remains PENDING until the corrected Actions run completes.
+
+
+## Bounce EXP004-C05 — Kwant compatibility matrix launched
+
+The corrected stable build reached the compiler but failed against NumPy 2.x
+API changes. The qualification is now split into two deterministic lanes:
+
+- stable Kwant 1.5.0 + NumPy 1.26.4;
+- pinned upstream development snapshot `ef12fa0d7` + NumPy 2.x.
+
+Both run the same transport/mode/spin known-answer smoke on public Actions.
+
+No repository-wide dependency decision has been made.
+
+
+## Bounce EXP004-C06 — compatibility midpoint
+
+Run 36116861955:
+- stable Kwant 1.5.0 + NumPy 1.26.4: deterministic backend smoke PASS;
+- pinned development Kwant ef12fa0d7 + NumPy 2.x: build environment failed
+  because isolated build could not see SciPy Cython headers.
+
+The development lane is being rerun with `--no-build-isolation`, using the
+explicitly prepared NumPy/SciPy/Meson environment.
+
+No repository dependency has been selected yet.
+
+
+## Bounce EXP004-C07 — backend primitive qualification complete
+
+Public Actions run `36117118891` passed the exact known-answer smoke in both:
+- released Kwant 1.5.0 + NumPy 1.26.4;
+- pinned Kwant `1.5.1.dev68+gef12fa0d7` + NumPy 2.5.3.
+
+Council + Monte Carlo selected the pinned NumPy-2 lane only for the next bounded
+research spike. The stable lane is retained as fallback/cross-check.
+
+Kwant is **not** added to `pyproject.toml` yet.
+
+Next bounce: Wilson r=0.5 lead-mode/band smoke. Full EXP-004 scattering device
+remains unauthorized.
+
+
+## Bounce EXP004-C08 — Wilson lead-mode smoke launched
+
+The first physical bridge from VAL-001 into Kwant is now isolated as a
+lead-only calculation.
+
+Candidate:
+- isotropic 2D Wilson extension with r=0.5;
+- a=10 A, periodic circumference 800 A;
+- two walls separated by 8 xi;
+- pinned Kwant dev ef12fa0d7 + NumPy 2 lane.
+
+The smoke checks low-k chirality/spin/localization plus an r=0 doubler red-team
+at the y Brillouin-zone edge.
+
+No finite scattering device is built.
+
+Gate: Actions result pending.
+
+
+## Bounce EXP004-C09 — Wilson lead-mode bridge PASS
+
+Public Actions run `36118618663` passed the C08 lead-only physical bridge.
+
+Key evidence:
+- canonical wall: E=+0.0049979231 eV, dE/dk=+0.0998748569 eV,
+  <sigma_x>=-0.999998773, wall weight=0.96926;
+- opposite wall: signs/spin reversed with the same localization quality;
+- Wilson r=0.5 Brillouin-edge minimum |E|=0.08119 eV;
+- naive r=0 control minimum |E|≈2.74e-19 eV;
+- Kwant Bands/direct Bloch residual < 7e-16 eV.
+
+Artifact `10855718954`, zip SHA-256
+`e5b6d80d544c60d1a66b0c3d3054955c5cf8625f2c6273ad413a8786ba4166d3`.
+
+Gate:
+```text
+Wilson lead-mode bridge  PASS
+convergence              NOT ESTABLISHED
+finite scattering device NOT AUTHORIZED
+```
+
+Next bounce: freeze and execute a compact convergence pilot before any device
+region is created.

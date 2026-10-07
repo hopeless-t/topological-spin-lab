@@ -1,0 +1,43 @@
+name: val003-mpfr
+
+on:
+  # This is intentionally push-scoped.  pull_request.paths evaluates the full
+  # cumulative PR diff, so a long-lived research PR would re-run this expensive
+  # MPFR lane on every unrelated checkpoint after VAL-003 first changed.
+  push:
+    branches:
+      - research/exp004-reentry-2026-09-25
+    paths:
+      - "src/topological_spin_lab/verification/**"
+      - "research/val003_mpfr_backend_qualification.py"
+      - ".github/workflows/val003-mpfr.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: val003-mpfr-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install base lab
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: Install MPFR/MPC comparator
+        run: |
+          python -m pip install "gmpy2==2.3.2"
+
+      - name: Qualify VAL-003 MPFR backend
+        run: |
+          python research/val003_mpfr_backend_qualification.py \
+            --out runs/VAL-003-C02/mpfr_backend_qualification.json
