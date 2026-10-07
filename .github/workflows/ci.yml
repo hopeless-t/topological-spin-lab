@@ -1,8 +1,17 @@
 name: ci
 
 on:
+  # PR branches are verified by the pull_request event below. Restrict push CI
+  # to main so each research checkpoint does not run the same suite twice.
   push:
+    branches:
+      - main
   pull_request:
+
+# A newer checkpoint supersedes an older in-flight run for the same PR/ref.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
