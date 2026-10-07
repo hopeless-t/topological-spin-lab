@@ -142,7 +142,10 @@ Kwant primitive qualification      PASS
 Wilson lead-mode bridge            PASS
 independent dense reproduction     PASS (research-only)
 convergence pilot                  EXPLORATORY PASS
+threshold sensitivity review       COMPLETE
 convergence criteria               CANDIDATE / NOT FROZEN
+economy candidate                  a=10 Å, 8 xi
+margin candidate                   a=8 Å, 8 xi
 finite scattering device           NOT AUTHORIZED
 EXP-004 scientific PASS            NO
 ```
@@ -179,18 +182,61 @@ cheap independent oracle
 
 rather than sending every exploratory question directly to remote CI.
 
+## EXP004-C11 — threshold sensitivity review
+
+C11 applied strict, nominal, and relaxed threshold families to the C10 matrix.
+
+Result:
+
+```text
+10 Å / 8 xi   strict FAIL, nominal PASS, relaxed PASS
+8 Å / 8 xi    strict PASS, nominal PASS, relaxed PASS
+```
+
+This means the historical C09 point is useful but not threshold-insensitive.
+
+C11 also separates the gate into three classes:
+
+```text
+CONVERGENCE
+    continuum energy error
+    group-velocity error
+    wall-wall hybridization
+    refinement stability
+
+IDENTITY
+    wall localization
+    spin sign / magnitude
+    wall assignment
+
+REGULATOR / RED TEAM
+    Wilson Brillouin-edge gap
+    r=0 doubler detection
+```
+
+Artifacts:
+
+- `evidence/EXP-004/convergence/exp004_gate_sensitivity_2026-10-07.json`
+- `evidence/EXP-004/convergence/EXP004-C11_GATE_SENSITIVITY_2026-10-07.md`
+
 ## Next bounded bounce
 
-**EXP004-C11 — convergence-gate review and reproducible confirmation**
+**EXP004-C12 — economy-versus-margin cost qualification**
+
+Compare only:
+
+```text
+economy: a = 10 Å, separation = 8 xi
+margin:  a = 8 Å,  separation = 8 xi
+```
 
 Required:
 
-1. independently review the C10 threshold choices;
-2. add at least one threshold-sensitivity check so the gate is not tuned to one point;
-3. rerun the frozen convergence matrix on the selected reproducible environment;
-4. serialize the result;
-5. if and only if the gate survives, explicitly decide whether the minimal clean finite
-   scattering calibration is authorized.
+1. reproduce both candidates in the selected authority-crossing environment;
+2. measure deterministic runtime/resource cost with the same physical geometry;
+3. keep the gate classes separated;
+4. freeze the cheapest candidate that preserves the chosen accuracy margin;
+5. only then make an explicit transport-implementation authorization decision.
 
 Do not begin curved-wall, disorder, leakage, or NdBi-specific transport work before this
 gate is resolved.
