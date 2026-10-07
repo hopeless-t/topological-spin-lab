@@ -16,6 +16,7 @@ to implement NearSum, ExBLAS, or OzBLAS.
 from __future__ import annotations
 
 import math
+import sys
 from fractions import Fraction
 from typing import Sequence
 
@@ -27,27 +28,51 @@ _DEFAULT_CRT_CHECK_MODULUS = 113
 
 
 def two_product(a: float, b: float) -> tuple[float, float]:
-    """Return p, e such that a*b == p+e for bounded binary64 inputs.
+    """Return ``p, e`` such that ``a*b == p+e`` inside a fail-closed domain.
 
-    This is Dekker splitting. Callers must avoid overflow/underflow in the
-    intermediate splitter products; the validation harness deliberately keeps
-    adversarial test inputs in a safe exponent range.
+    The reference implementation uses Dekker splitting.  Rather than silently
+    returning an invalid error term when the rounded product is subnormal,
+    underflows/overflows, or the splitter multiplication overflows, it rejects
+    that case.  A stronger MPFR/FMA/native backend may then adjudicate it.
+
+    This conservative contract intentionally rejects some cases whose product
+    might happen to be exactly representable as a subnormal.  Verification is
+    allowed to escalate; it is not allowed to guess outside its proven lane.
     """
     a = float(a)
     b = float(b)
-    p = a * b
+    if not (math.isfinite(a) and math.isfinite(b)):
+        raise ValueError("EFT requires finite binary64 operands")
 
-    c = _SPLITTER * a
-    a_big = c - a
-    a_hi = c - a_big
+    # Zero products are exact and need no split.  Handle them before the
+    # normal-product guard so literal zeros remain cheap and supported.
+    if a == 0.0 or b == 0.0:
+        return a * b, 0.0
+
+    p = a * b
+    if not math.isfinite(p):
+        raise ValueError("EFT product overflow: escalate to a stronger backend")
+    if p == 0.0 or abs(p) < sys.float_info.min:
+        raise ValueError(
+            "EFT product is subnormal/underflowed: escalate to a stronger backend"
+        )
+
+    ca = _SPLITTER * a
+    cb = _SPLITTER * b
+    if not (math.isfinite(ca) and math.isfinite(cb)):
+        raise ValueError("EFT splitter overflow: escalate to a stronger backend")
+
+    a_big = ca - a
+    a_hi = ca - a_big
     a_lo = a - a_hi
 
-    c = _SPLITTER * b
-    b_big = c - b
-    b_hi = c - b_big
+    b_big = cb - b
+    b_hi = cb - b_big
     b_lo = b - b_hi
 
     err = ((a_hi * b_hi - p) + a_hi * b_lo + a_lo * b_hi) + a_lo * b_lo
+    if not math.isfinite(err):
+        raise ValueError("EFT error term became non-finite")
     return p, err
 
 
