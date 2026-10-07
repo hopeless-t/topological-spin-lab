@@ -64,3 +64,8 @@ jobs:
           python research/val001_threshold_sensitivity.py \
             runs/VAL-001-ci/summary.json \
             --out runs/VAL-001-ci/threshold_sensitivity.json
+
+      - name: Run VAL-003 numerical trust pilot
+        run: |
+          python research/val003_numerical_trust_pilot.py \
+            --out runs/VAL-003-ci/numerical_trust_pilot.json
