@@ -1,7 +1,11 @@
 name: exp004-c13-clean-scattering
 
 on:
-  pull_request:
+  # Use push/path filtering so this specialist Kwant lane reacts only to the
+  # current checkpoint, not to the cumulative diff of the long-lived draft PR.
+  push:
+    branches:
+      - research/exp004-reentry-2026-09-25
     paths:
       - research/exp004_c13_clean_scattering.py
       - .github/workflows/exp004-c13-clean-scattering.yml
@@ -9,7 +13,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: exp004-c13-${{ github.event.pull_request.number || github.ref }}
+  group: exp004-c13-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
