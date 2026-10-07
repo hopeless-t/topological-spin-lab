@@ -1,0 +1,107 @@
+{
+  "authority": "research-only; thresholds not frozen; rerun required before promotion",
+  "candidate_gate": {
+    "abs_sigma_x_min": 0.999,
+    "continuum_energy_relative_error_max": 0.001,
+    "group_velocity_relative_error_max": 0.002,
+    "hybridization_gap_max_eV": 1e-05,
+    "lattice_spacing_A": 10.0,
+    "minimum_wall_separation_xi": 8,
+    "naive_pi_gap_max_eV": 1e-10,
+    "wall_weight_min": 0.95,
+    "wilson_pi_gap_min_eV": 0.05
+  },
+  "candidate_gate_checks": {
+    "all_pass": true
+  },
+  "canonical": {
+    "dE_dky_eV_A": 0.9987485671342482,
+    "energy_eV": 0.004997923060880724,
+    "energy_relative_error": 0.0004153878238552858,
+    "hybridization_gap_eV": 8.574754644204381e-06,
+    "lattice_spacing_A": 10.0,
+    "naive_r0_pi_gap_eV": 3.443101746981668e-17,
+    "sigma_x": -0.9999987727276153,
+    "velocity_relative_error": 0.0012514328657518003,
+    "wall_separation_xi": 8,
+    "wall_weight": 0.9692577462762243,
+    "wilson_pi_gap_eV": 0.08118689392021403
+  },
+  "claim_ceiling": "lead-mode convergence only; no finite-device scattering, conductance, disorder robustness, or material-specific claim",
+  "date": "2026-10-07",
+  "lattice_sweep_sep8": [
+    {
+      "energy_abs_error_eV": 8.303880875340855e-06,
+      "hybridization_gap_eV": 1.745734446487477e-05,
+      "lattice_spacing_A": 20.0,
+      "velocity_relative_error": 0.005002867636868302,
+      "wilson_pi_gap_eV": 0.03189357568625189
+    },
+    {
+      "energy_abs_error_eV": 3.2449326589105085e-06,
+      "hybridization_gap_eV": 1.0755290857535849e-05,
+      "lattice_spacing_A": 12.5,
+      "velocity_relative_error": 0.0019551543139233463,
+      "wilson_pi_gap_eV": 0.06136254583986289
+    },
+    {
+      "energy_abs_error_eV": 2.076939119276429e-06,
+      "hybridization_gap_eV": 8.574754644204381e-06,
+      "lattice_spacing_A": 10.0,
+      "velocity_relative_error": 0.0012514328657518003,
+      "wilson_pi_gap_eV": 0.08118689392021403
+    },
+    {
+      "energy_abs_error_eV": 1.3293157485726875e-06,
+      "hybridization_gap_eV": 6.844597316466494e-06,
+      "lattice_spacing_A": 8.0,
+      "velocity_relative_error": 0.0008009719442798602,
+      "wilson_pi_gap_eV": 0.10604403226491944
+    },
+    {
+      "energy_abs_error_eV": 5.192956057682024e-07,
+      "hybridization_gap_eV": 4.267515978314255e-06,
+      "lattice_spacing_A": 5.0,
+      "velocity_relative_error": 0.0003129028988144711,
+      "wilson_pi_gap_eV": 0.18081960520646853
+    }
+  ],
+  "parameters": {
+    "alpha_eV_A": 1.0,
+    "m0_eV": 0.02,
+    "probe_ky_Ainv": 0.005,
+    "wall_width_A": 50.0,
+    "wilson_r": 0.5,
+    "xi_A": 50.0
+  },
+  "runtime": {
+    "numpy": "2.3.5",
+    "python": "3.13.5"
+  },
+  "schema_version": "exp004-c10-receipt-v0.1",
+  "separation_sweep_a10": [
+    {
+      "hybridization_gap_eV": 0.00014439511821046745,
+      "velocity_relative_error": 0.0017595179697327268,
+      "wall_separation_xi": 4
+    },
+    {
+      "hybridization_gap_eV": 4.206289507337271e-05,
+      "velocity_relative_error": 0.0012911526454740807,
+      "wall_separation_xi": 6
+    },
+    {
+      "hybridization_gap_eV": 8.574754644204381e-06,
+      "velocity_relative_error": 0.0012514328657518003,
+      "wall_separation_xi": 8
+    },
+    {
+      "hybridization_gap_eV": 1.5439456263275723e-06,
+      "velocity_relative_error": 0.0012497956814834232,
+      "wall_separation_xi": 10
+    }
+  ],
+  "source_branch": "research/exp004-reentry-2026-09-25",
+  "source_head_before_c10": "e076dd709991a7df4b0525e86c133090fdb03da7",
+  "status": "EXPLORATORY_PASS"
+}
