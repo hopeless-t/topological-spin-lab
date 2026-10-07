@@ -3,13 +3,13 @@ name: exp004-c13-clean-scattering
 on:
   # Use push/path filtering so this specialist Kwant lane reacts only to the
   # current checkpoint, not to the cumulative diff of the long-lived draft PR.
+  # Contract/evidence text changes do not rerun the numerical experiment.
   push:
     branches:
       - research/exp004-reentry-2026-09-25
     paths:
       - research/exp004_c13_clean_scattering.py
       - .github/workflows/exp004-c13-clean-scattering.yml
-      - docs/EXP-004.md
   workflow_dispatch:
 
 concurrency:
