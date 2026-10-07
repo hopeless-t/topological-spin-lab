@@ -1,0 +1,95 @@
+{
+  "schema_version": "val002-c02-l0-representability-v0.1",
+  "date": "2026-10-07",
+  "status": "L0_MATERIAL_INADEQUATE",
+  "authority": "Structural representability audit only; no parameter fit and no L1 term proposal.",
+  "model": {
+    "level": "L0",
+    "implementation": "src/topological_spin_lab/models/magnetic_surface_dirac.py",
+    "hamiltonian": "H = alpha (kx sigma_y - ky sigma_x) + mass sigma_z",
+    "matrix_dimension": 2,
+    "explicit_inputs": [
+      "kx_Ainv",
+      "ky_Ainv",
+      "alpha_eV_A",
+      "mass_eV"
+    ],
+    "explicit_context_inputs_absent": [
+      "surface_index_or_termination",
+      "AF_domain_or_combined_symmetry_class",
+      "q_order",
+      "surface_magnetic_order_parameter",
+      "orbital_sector",
+      "AF_sublattice_or_folded_band_sector",
+      "surface_bulk_projector_or_layer_coordinate"
+    ],
+    "capabilities": {
+      "opens_two_level_dirac_gap_via_scalar_mass": true,
+      "supports_vector_spin_expectation_in_two_component_spinor": true,
+      "supports_context_conditioned_domain_symmetry_rule": false,
+      "supports_explicit_surface_inversion_breaking_distinct_from_mass": false,
+      "supports_surface_bulk_identity": false,
+      "supports_q_order": false,
+      "supports_multi_sector_branch_multiplicity": false
+    }
+  },
+  "targets": {
+    "T1_domain_combined_symmetry_response": {
+      "status": "NOT_REPRESENTABLE",
+      "reason": "The only gap control is an externally supplied scalar mass. The model has no explicit surface/domain/combined-symmetry variable or rule that determines when the Dirac state must be gapped versus gapless.",
+      "parameter_tuning_can_repair": false,
+      "failure_class": "missing_context_and_coupling_structure"
+    },
+    "T2_AF_surface_branch_spin_structure": {
+      "status": "CONTEXT_MISSING",
+      "reason": "The two-component spinor can produce vector spin expectation values, but the implementation has no AF-domain, surface-inversion-breaking, orbital, or folded-band context with which to identify the source-observed AF surface-band pair as a material state class.",
+      "parameter_tuning_can_repair": false,
+      "failure_class": "spin_observable_present_material_branch_identity_absent"
+    },
+    "T3_quantitative_spin_polarized_dirac_gap": {
+      "status": "REPRESENTABLE",
+      "reason": "A two-level Dirac gap can be set through mass_eV; the spectral gap at k=0 is 2*abs(mass). This is representability only and does not establish that the mass parameter is an NdBi order parameter.",
+      "parameter_tuning_can_repair": true,
+      "failure_class": null,
+      "warning": "Setting mass_eV to approximately 8.5 meV can match a 17 meV gap numerically but cannot by itself satisfy VAL-002 material adequacy."
+    },
+    "T4_surface_bulk_identity": {
+      "status": "NOT_REPRESENTABLE",
+      "reason": "The L0 Hilbert space is a surface spinor only. It contains no bulk sector, layer coordinate, orbital projection, or surface spectral-weight observable capable of distinguishing a surface state from bulk-derived states.",
+      "parameter_tuning_can_repair": false,
+      "failure_class": "missing_state_space_dimension_or_projection"
+    },
+    "T5_surface_magnetic_order_sensitivity": {
+      "status": "CONTEXT_MISSING",
+      "reason": "The caller can manually vary mass_eV, but the model contains no explicit surface-magnetic-order variable and no preregistered coupling rule linking loss of surface order to gap suppression. Manual mass switching is not a material response model.",
+      "parameter_tuning_can_repair": false,
+      "failure_class": "missing_physical_context_variable"
+    },
+    "T6_q_order_surface_state_multiplicity": {
+      "status": "NOT_REPRESENTABLE",
+      "reason": "The two-component state space has no q-order input and no orbital/folding/sublattice sectors from which 1q/2q/3q-dependent branch multiplicity or bulk Dirac/Weyl class can arise.",
+      "parameter_tuning_can_repair": false,
+      "failure_class": "missing_state_space_and_context"
+    },
+    "T7_termination_dependent_1D_edge_state": {
+      "status": "NOT_APPLICABLE_AT_THIS_LEVEL",
+      "reason": "T7 is deliberately deferred by the C01 contract and does not participate in the first uniform-surface adequacy decision."
+    }
+  },
+  "summary": {
+    "required_targets_representable": [
+      "T3_quantitative_spin_polarized_dirac_gap"
+    ],
+    "required_targets_failed_or_context_missing": [
+      "T1_domain_combined_symmetry_response",
+      "T2_AF_surface_branch_spin_structure",
+      "T4_surface_bulk_identity",
+      "T5_surface_magnetic_order_sensitivity",
+      "T6_q_order_surface_state_multiplicity"
+    ],
+    "material_adequacy_pass": false,
+    "decision": "Retain L0 frozen as the generic known-answer reference. Do not fit L0 to NdBi as a material model. L1 eligibility is opened only for the failures that can be addressed by a symmetry-derived surface theory; failures requiring additional sectors must remain visible rather than being hidden by parameters."
+  },
+  "next_gate": "VAL002-C03: derive the L1 surface symmetry/context requirements from the declared primary slice without yet fitting coefficients; explicitly test which C02 failures L1 can and cannot represent.",
+  "claim_ceiling": "C02 proves only structural material inadequacy of the current L0 interface under the frozen VAL-002 contract. It does not identify the correct L1/L2 Hamiltonian or any NdBi transport result."
+}
