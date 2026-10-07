@@ -1,17 +1,13 @@
 # Research current state — 2026-10-07
 
 **STATUS:** ACTIVE RESTART / RESEARCH ONLY  
-**ACTIVE PR:** #12 `research: restart EXP-004 through convergence-gate review`  
+**ACTIVE PR:** #12 `research: restart EXP-004 with model and numerical trust gates`  
 **ACTIVE BRANCH:** `research/exp004-reentry-2026-09-25`
 
-This checkpoint restarts the physics program after attention shifted to other implementations.
-It preserves the existing scientific boundary and adds a literature delta, a cheaper
-independent oracle, a compact convergence pilot, threshold sensitivity, and an explicit
-mathematical-model adequacy lane.
+This checkpoint records the restarted physics program after the 2026-10-07
+literature/model refresh, convergence work, and numerical-trust program.
 
-## What was already complete
-
-Verified state at restart:
+## Preserved baseline
 
 - EXP-001 — implemented + frozen;
 - EXP-002 — implemented + frozen;
@@ -20,84 +16,42 @@ Verified state at restart:
 - Stacey/tangent — stationary spectral validator;
 - Wilson `r=0.5` — conventional-lattice transport candidate;
 - Kwant primitive backend qualification — complete;
-- EXP004-C09 Wilson lead-mode physical bridge — PASS;
-- finite scattering device — **NOT AUTHORIZED**.
+- EXP004-C09 Wilson lead-mode bridge — PASS;
+- EXP-004 scientific finite-device PASS — **NO**.
 
-C09 reported for the canonical `a = 10 Å`, `wall separation = 8 xi` lead:
+The frozen generic model remains a useful L0 known-answer model:
 
 ```text
-E(+k)                    +0.0049979231 eV
-<sigma_x>                -0.999998773
-wall weight               0.96926
-Wilson r=0.5 pi gap       0.08119 eV
-r=0 Red Team pi gap      ~0
+H = alpha (kx sigma_y - ky sigma_x) + m(r) sigma_z
 ```
 
-The next recorded gate was a compact convergence pilot.
+It is not promoted as an adequate modern NdBi material model.
 
-## Main/branch drift
-
-`main` subsequently gained a methodology note transferring regime/knee/topology measurement
-discipline from Strata. That change is process input, not physics evidence.
-
-Before merge/promotion, the research branch should be synchronized with current `main`.
-This restart does not treat Git ancestry drift as a scientific disagreement.
-
-## 2026-10-07 source refresh
+## Literature and model-adequacy delta
 
 See:
 
 - `docs/research/LITERATURE_DELTA_2026-10-07.md`
+- `docs/research/MODEL_ADEQUACY_AUDIT_2026-10-07.md`
 
-Materially relevant additions include:
-
-- 2025 NdBi laser-SARPES spin-splitting work;
-- 2024 magnetic-TI nanoribbon domain-wall transport;
-- 2025 magnetic-TI domain-wall snake-state transport;
-- 2025 AFTI domain-wall topology with explicit crystalline / mirror-symmetry dependence;
-- 2025 direct / zero-field chiral edge transport in MnBi2Te4;
-- the September 2026 NdBi spin-polarized Dirac-gap result as a model-adequacy constraint for later material-informed work.
-
-The refresh does **not** change the frozen generic EXP-001/002/003 parameters.
-
-## EXP004-C10 — independent dense-oracle convergence pilot
-
-A NumPy-only dense Bloch Hamiltonian was constructed independently from Kwant using the same
-C09 Wilson lead Hamiltonian.
-
-Artifacts:
-
-- `research/exp004_convergence_pilot.py`
-- `evidence/EXP-004/convergence/exp004_convergence_pilot_2026-10-07.json`
-- `evidence/EXP-004/convergence/EXP004-C10_INDEPENDENT_CONVERGENCE_PILOT_2026-10-07.md`
-
-### Independent reproduction
-
-At the C09 canonical point, the independent oracle returns:
+The restart now separates:
 
 ```text
-E                         0.004997923060880724 eV
-<sigma_x>                -0.9999987727276153
-wall weight               0.9692577462762243
-dE/dky                    0.9987485671342482 eV·Å
-Wilson pi gap             0.08118689392021403 eV
-naive r=0 pi gap          3.44e-17 eV
+L0  generic 2x2 Dirac + scalar mass known answer
+L1  symmetry-derived surface k.p candidate
+L2  minimal spin x orbital x AFM/folding reduced model candidate
+L3  DFT+U+SOC / Wannier NdBi material oracle
 ```
 
-The energy, spin, localization, and Wilson doubler gap reproduce the previously recorded
-C09 values without using Kwant.
+No speculative L1/L2 Hamiltonian is frozen. A proposed VAL-002 lane must first
+freeze the NdBi observable/model-adequacy contract.
 
-### Separation sweep at `a = 10 Å`
+## EXP004-C10 — independent convergence pilot
 
-```text
-separation       hybridization gap
-4 xi             1.44395e-4 eV
-6 xi             4.20629e-5 eV
-8 xi             8.57475e-6 eV
-10 xi            1.54395e-6 eV
-```
+A NumPy-only dense Bloch oracle independently reproduced C09 and swept lattice
+spacing plus wall separation.
 
-### Lattice-refinement sweep at `8 xi`
+At `8 xi` wall separation:
 
 ```text
 a           velocity relative error      hybridization gap
@@ -108,216 +62,233 @@ a           velocity relative error      hybridization gap
 5 Å         3.129e-4                     4.268e-6 eV
 ```
 
-The C09 point lies on the convergent side of both the lattice-resolution and wall-separation
-knees for the tested observables.
-
-## EXP004-C11 — threshold sensitivity review
-
-C11 applied strict, nominal, and relaxed threshold families to the C10 matrix.
-
-Result:
+## EXP004-C11 — threshold sensitivity
 
 ```text
 10 Å / 8 xi   strict FAIL, nominal PASS, relaxed PASS
 8 Å / 8 xi    strict PASS, nominal PASS, relaxed PASS
 ```
 
-This means the historical C09 point is useful but not threshold-insensitive.
+The gate remains separated into convergence, identity, and regulator/Red-Team
+classes.
 
-C11 separates the gate into three classes:
-
-```text
-CONVERGENCE
-    continuum energy error
-    group-velocity error
-    wall-wall hybridization
-    refinement stability
-
-IDENTITY
-    wall localization
-    spin sign / magnitude
-    wall assignment
-
-REGULATOR / RED TEAM
-    Wilson Brillouin-edge gap
-    r=0 doubler detection
-```
-
-Artifacts:
-
-- `evidence/EXP-004/convergence/exp004_gate_sensitivity_2026-10-07.json`
-- `evidence/EXP-004/convergence/EXP004-C11_GATE_SENSITIVITY_2026-10-07.md`
-
-## Mathematical-model adequacy audit
+## VAL-003 — numerical trust / multi-oracle verification
 
 See:
 
-- `docs/research/MODEL_ADEQUACY_AUDIT_2026-10-07.md`
+- `docs/VAL-003.md`
+- `research/NUMERICAL_TRUST_FUNNEL.md`
+- `docs/research/NUMERICAL_TRUST_DELTA_2026-10-07.md`
 
-### Diagnosis
-
-The existing model
-
-```text
-H = alpha (kx sigma_y - ky sigma_x) + m(r) sigma_z
-```
-
-is still a valid and useful **generic two-component known-answer model**. It should remain
-frozen as an analytic / numerical reference.
-
-It is not, however, a sufficient material model of modern NdBi evidence.
-
-The problem is not merely discretization error. The two-component state space cannot
-independently represent:
-
-- NdBi orbital content;
-- magnetic sublattice / q-order;
-- the observed pair of spin-split surface bands;
-- surface inversion-symmetry breaking distinct from a magnetic scalar mass;
-- AFM band folding / hybridization;
-- 1q / 2q / 3q-dependent Dirac / Weyl structure.
-
-Taking `a -> 0` in the Wilson model cannot recover missing state-space dimensions.
-
-### Model ladder
-
-The restart therefore adopts a candidate model hierarchy:
+The working funnel is now:
 
 ```text
-L0  frozen generic 2x2 Dirac + scalar mass known answer
-L1  symmetry-derived low-order surface k.p model
-L2  minimal multi-sector spin x orbital x AFM/folding reduced model
-L3  DFT+U+SOC / Wannier NdBi material-reference tight binding
+ordinary calculation
+-> numerical kittens
+-> suspicious cases
+-> fail-closed EFT product-error capture + accurate reduction
+-> exact small oracle (Fraction / bounded CRT)
+-> MPFR/MPC authority-boundary adjudicator
+-> failure biopsy
+-> durable regression kitten
 ```
 
-The intended flow is:
+The verifier is a falsification system, not a majority vote.
+
+### VAL003-C01 — lightweight trust pilot
+
+C01 added:
+
+- Dekker `TwoProduct` EFT;
+- accurate `math.fsum` reduction;
+- exact `Fraction` real/complex dot oracles;
+- Ozaki-Scheme-II-inspired bounded CRT exact micro-GEMM;
+- independent unused-modulus corruption check;
+- deterministic cancellation kittens;
+- metamorphic permutation, scaling, and global-phase checks;
+- EFT eigenpair residual / spin post-check.
+
+Python 3.12 CI reproduced:
 
 ```text
-L3 material oracle
-    -> downfold / fit
-L2 smallest material-adequate reduced model
-    -> low-cost transport / exploration
-L1 symmetry tests
-    -> term necessity / failure localization
-L0 frozen known answers
-    -> analytic and numerical falsification
+CRT bounded GEMM                  256 / 256 exact
+capacity overflow                rejected
+corrupted reconstruction         detected
+real kittens EFT                1024 / 1024 exact-oracle matches
+real NumPy dot                      0 / 1024 on adversarial kittens
+fsum(rounded products)              0 / 1024 on adversarial kittens
+complex kittens EFT               256 / 256 exact-oracle matches
+complex NumPy dot                  63 / 256 on adversarial kittens
 ```
 
-No L1/L2 coupling matrix is frozen yet. Terms must be symmetry-derived or downfolded, not
-invented by analogy.
+C01 falsified the shortcut assumption that accurate summation can recover bits
+already discarded during multiplication. The cheap trust path therefore starts
+with product-error capture.
 
-### Proposed VAL-002
+### VAL003-C02 — MPFR/MPC qualification
 
-Before any material-specific NdBi transport claim, add a **model adequacy** validation lane.
-
-Candidate target observables:
-
-- number of surface branches;
-- dispersion near the chosen surface TRIM;
-- magnetic Dirac gap;
-- full vector spin texture versus momentum;
-- magnetic-order reversal response;
-- surface / bulk spectral weight;
-- surface inversion-breaking sensitivity;
-- q-order dependence where available.
-
-Use the smallest model that passes predefined observable gates. Failure of a lower-order
-model is evidence, not a reason to silently add complexity.
-
-## Scientific boundary after restart
+C02 qualified a scoped 256-bit `gmpy2` / MPFR / MPC lane on GitHub Actions:
 
 ```text
-EXP-004 contract                    DRAFT
-Kwant primitive qualification      PASS
-Wilson lead-mode bridge            PASS
-independent dense reproduction     PASS (research-only)
-convergence pilot                  EXPLORATORY PASS
-threshold sensitivity review       COMPLETE
-convergence criteria               CANDIDATE / NOT FROZEN
-economy candidate                  a=10 Å, 8 xi
-margin candidate                   a=8 Å, 8 xi
-L0 generic model                   VALID / FROZEN REFERENCE
-NdBi material adequacy             NOT ESTABLISHED
-VAL-002 model-adequacy lane        PROPOSED
-finite scattering device           NOT AUTHORIZED
-EXP-004 scientific PASS            NO
+run       37563577740
+job       112606121293
+Python    3.12.14
+gmpy2     2.3.2
+MPFR      4.2.2
+MPC       1.4.1
+precision 256 bits
+status    QUALIFICATION PASS
 ```
 
-## New research axes discovered
-
-The source refresh identifies downstream lanes:
-
-1. **geometry/path topology** — straight, slanted, curved, transverse walls;
-2. **mass amplitude vs sign** — true sign-changing wall versus same-sign magnetic-gap suppression as a null/control geometry;
-3. **mixed-channel leakage** — preserve channel identity when trivial/bulk-like transport coexists;
-4. **NdBi model adequacy** — determine the minimum model required before any material-informed claim;
-5. **AFM order-parameter topology** — distinguish scalar mass walls from vector exchange textures, q-domain boundaries, and symmetry-protected AFTI defects.
-
-The last two are now elevated because model inadequacy cannot be repaired by finer numerical convergence.
-
-## Updated high-speed loop
-
-See `research/HIGH_SPEED_RESEARCH_LOOP.md`.
-
-The key efficiency change is:
+Safe-domain adversarial results:
 
 ```text
-cheap independent oracle
--> bounded regime sweep
--> Red Team
--> candidate gate
--> reproducible authority-crossing run
+normal exponent kittens [-20,+20]    EFT 512 / 512 matches MPFR
+wide exponent kittens   [-400,+400]  EFT 512 / 512 matches MPFR
 ```
 
-rather than sending every exploratory question directly to remote CI.
+C02 also discovered and repaired a verifier defect: the original pure-Python
+Dekker lane documented its exponent assumptions but did not enforce them. The
+current `TwoProduct` now fails closed on non-finite inputs, product overflow,
+subnormal/underflowed products, splitter overflow, or non-finite error terms.
 
-The model lane adds:
+Boundary Red Teams such as `2^-800 * 2^-300`, `2^-1022 * 0.5`,
+`2^1000 * 2^-1000`, and `2^900 * 2^200` are now rejected by the cheap EFT lane
+and remain adjudicable by MPFR.
+
+The C12 margin eigenpair was also independently post-checked:
 
 ```text
-observable target
--> smallest candidate state space
--> symmetry/downfold derivation
--> failure against material oracle
--> complexity only when earned
+EFT residual norm     1.644776539676223e-16
+MPFR residual norm    1.6447765396762231742992037899966785312382e-16
+EFT <sigma_x>        -0.9999992176075575
+MPFR <sigma_x>       -0.9999992176075576
 ```
 
-## Next bounded bounces
-
-### EXP004-C12 — economy-versus-margin cost qualification
-
-Compare only:
+Frozen numerical-trust policy:
 
 ```text
-economy: a = 10 Å, separation = 8 xi
-margin:  a = 8 Å,  separation = 8 xi
+N0  NumPy/SciPy                    broad exploration
+N1  fail-closed EFT                cheap suspicious-case check
+N2  Fraction / bounded CRT         exact small oracle
+N3  MPFR/MPC 256-bit               authority-boundary adjudicator
 ```
 
-Required:
+ExBLAS/OzBLAS remain optional future differential/performance lanes, not a
+blocker for the next bounded physics step.
 
-1. reproduce both candidates in the selected authority-crossing environment;
-2. measure deterministic runtime/resource cost with the same physical geometry;
-3. keep the gate classes separated;
-4. freeze the cheapest candidate that preserves the chosen accuracy margin;
-5. only then make an explicit generic finite-transport authorization decision.
+## EXP004-C12 — cost + trust selection
 
-### VAL-002-C01 — model-target contract
+C12 compared only the two C11 candidates on Python 3.12 CI and applied VAL-003
+post-checks.
 
-In parallel, define a material-adequacy contract from the 2025–2026 NdBi observations and
-material-reference calculations. Do not yet fit a speculative Hamiltonian.
+### Economy — `10 Å / 8 xi`
 
-First freeze:
+```text
+matrix dimension              160
+energy relative error         4.154e-4
+velocity relative error       1.251e-3
+hybridization gap             8.575e-6 eV
+EFT residual                  9.602e-17
+nominal                       PASS
+strict                        FAIL
+```
 
-- selected surface / TRIM;
-- magnetic-order assumption;
-- target branch count;
-- energy-window and gap observables;
-- spin-vector observables;
-- surface spectral-weight observables;
-- claim ceiling.
+### Margin — `8 Å / 8 xi`
+
+```text
+matrix dimension              200
+energy relative error         2.659e-4
+velocity relative error       8.010e-4
+hybridization gap             6.845e-6 eV
+EFT residual                  1.645e-16
+nominal                       PASS
+strict                        PASS
+```
+
+Deterministic cost ratios, margin / economy:
+
+```text
+transverse sites              1.25
+matrix elements / storage     1.5625
+dense n^3 proxy               1.953125
+same-extent 2D sites proxy    1.5625
+```
+
+The same-run eigensolver median ratio was ~1.34, but runtime is descriptive and
+is not the selection authority.
+
+### Frozen C12 engineering selection
+
+For the generic clean EXP-004 calibration lane:
+
+```text
+lattice spacing      a = 8 Å
+wall separation      8 xi
+Wilson parameter     r = 0.5
+```
+
+is now the preferred frozen discretization candidate. `10 Å / 8 xi` remains an
+economy/reference point for exploration.
+
+C12 authorizes implementation of the **minimal clean finite scattering
+calibration only**. This is not a transport-result PASS.
+
+The implementation must inherit the frozen discretization and record at least:
+
+- scattering unitarity;
+- transmission/reflection;
+- propagating mode count;
+- spatial mode identity;
+- mode spin polarization;
+- lead/device mismatch Red Team;
+- deliberate S-matrix/unitarity corruption detection.
+
+No disorder, curved-wall, robustness, or material-specific NdBi claim is
+authorized by C12.
+
+## CI / research-loop efficiency
+
+The normal PR CI no longer duplicates branch push CI. Push CI is restricted to
+`main`, and concurrency cancels obsolete in-flight PR runs.
+
+The higher-cost MPFR lane is separately scoped to numerical-trust changes, so
+ordinary short research checkpoints do not install or run it unnecessarily.
+
+## Current authority map
+
+```text
+EXP-001/002/003 frozen references          PASS
+VAL-001 regulator cross-check              PASS
+EXP004-C09 lead bridge                     PASS
+EXP004-C10 convergence exploration         PASS
+EXP004-C11 threshold review                COMPLETE
+EXP004-C12 discretization selection        RESEARCH PASS
+frozen generic discretization              8 Å / 8 xi / r=0.5
+minimal clean device implementation        AUTHORIZED
+finite-device scientific transport PASS    NO
+VAL-002 NdBi model adequacy                 NOT ESTABLISHED
+VAL-003 C01 lightweight verifier            REPRODUCED
+VAL-003 C02 MPFR/MPC comparator             QUALIFIED
+```
+
+## Next bounded physics bounce
+
+**EXP004-C13 — minimal clean finite scattering calibration**
+
+Implement only the clean known-answer device already defined by the EXP-004
+Scientific Contract using `a = 8 Å`, `8 xi`, `r = 0.5`.
+
+The result must remain research-only until its scattering, mode-identity, spin,
+Red-Team, and VAL-003 evidence are reviewed.
+
+In parallel, VAL002-C01 may freeze the modern NdBi material-observable target
+contract, but it must not silently alter the generic EXP-004 model.
 
 ## Claim ceiling
 
-This restart establishes a stronger research process, a candidate convergence regime, and a
-formal diagnosis of the reduced model boundary. It does not establish finite-device
-transmission, quantized conductance, disorder robustness, or a material-specific NdBi
+The restart now establishes a stronger research process, a frozen generic
+numerical discretization candidate, and a qualified multi-oracle numerical
+trust ladder. It does not yet establish finite-device transmission, quantized
+conductance, disorder/geometry robustness, or a material-specific NdBi
 transport prediction.
